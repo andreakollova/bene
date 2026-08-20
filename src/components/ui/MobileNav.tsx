@@ -40,8 +40,8 @@ export function MobileNav() {
                 active ? "text-black" : "text-gray-400"
               }`}
             >
-              <Icon size={22} strokeWidth={active ? 2 : 1.75} />
-              <span className="text-[10px] font-medium uppercase tracking-widest">{label}</span>
+              <Icon size={18} strokeWidth={active ? 2 : 1.5} />
+              <span className="text-[8px] font-medium uppercase tracking-widest">{label}</span>
             </Link>
           );
         })}
