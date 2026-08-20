@@ -35,7 +35,7 @@ export default function RootLayout({
       data-theme="light"
       style={{ colorScheme: "light" }}
     >
-      <body className="h-full bg-[#E8E6DC] text-ink font-sans antialiased">
+      <body className="h-full text-ink font-sans antialiased" style={{ backgroundColor: '#fefefe' }}>
         <AppShell>{children}</AppShell>
       </body>
     </html>

@@ -155,7 +155,35 @@ export default function DomovPage() {
               const hasIAM = exNames.some((n) =>
                 SEED_TRAINER_REELS.some((r) => r.id.startsWith("reel_iam") && r.title === n)
               );
-              const trainerLabel = hasIAM ? "I AM Academy" : currentWeekIndex >= 2 ? "SportWell" : "Tréner";
+              // Determine specific set name
+              const sportSets = [
+                { prefix: "reel_sport_s1", label: "SportWell Blackpink" },
+                { prefix: "reel_sport_s2", label: "SportWell White" },
+                { prefix: "reel_sport_s3", label: "SportWell All Black" },
+                { prefix: "reel_sport_s4", label: "SportWell Pink" },
+                { prefix: "reel_sport_s5", label: "SportWell Blue" },
+              ];
+              let trainerLabel = "I AM Academy";
+              if (!hasIAM) {
+                const matchedSet = sportSets.find((s) =>
+                  exNames.some((n) =>
+                    SEED_TRAINER_REELS.some((r) => r.id.startsWith(s.prefix) && r.title === n)
+                  )
+                );
+                trainerLabel = matchedSet ? matchedSet.label : "Mix";
+              }
+              // Check if mixed
+              const hasMultipleSets = sportSets.filter((s) =>
+                exNames.some((n) =>
+                  SEED_TRAINER_REELS.some((r) => r.id.startsWith(s.prefix) && r.title === n)
+                )
+              ).length > 1;
+              if (hasIAM && sportSets.some((s) =>
+                exNames.some((n) =>
+                  SEED_TRAINER_REELS.some((r) => r.id.startsWith(s.prefix) && r.title === n)
+                )
+              )) trainerLabel = "Mix";
+              if (hasMultipleSets) trainerLabel = "Mix";
               return (
                 <div className="text-sm text-ink-muted mt-1 mb-4 space-y-1">
                   {vs && <p>Video: {vs.title}</p>}

@@ -28,7 +28,7 @@ export function MobileNav() {
       : pathname.startsWith(href);
 
   return (
-    <nav className="sticky bottom-0 z-50 bg-cream-50/90 backdrop-blur-md border-t border-cream-200">
+    <nav className="sticky bottom-0 z-50 backdrop-blur-md border-t border-cream-200" style={{ backgroundColor: 'rgba(254,254,254,0.9)' }}>
       <div className="flex items-center justify-around px-2 h-16 pb-1">
         {NAV_LINKS.map(({ href, label, icon: Icon }) => {
           const active = isActive(href);

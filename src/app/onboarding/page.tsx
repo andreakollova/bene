@@ -13,7 +13,7 @@ export default function OnboardingPage() {
   const { setScheduleDays, setOnboardingComplete, initializePlan } = useStore();
 
   const [step, setStep] = useState(0);
-  const [days, setDays] = useState<number[]>([0, 2, 4]);
+  const [days, setDays] = useState<number[]>([0, 2]);
 
   const toggleDay = (d: number) =>
     setDays((prev) =>

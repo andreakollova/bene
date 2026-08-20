@@ -40,5 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# videos too large for git (15GB)
-public/videos/
+# video files too large for git
+public/videos/**/*.mov
+public/videos/**/*.mp4
+public/videos/**/*.MP4
