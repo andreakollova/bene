@@ -72,11 +72,11 @@ export default function DomovPage() {
     const sets: { label: string; reels: typeof SEED_TRAINER_REELS }[] = [
       { label: "I AM Academy", reels: iamReels },
     ];
-    if (sportS1.length) sets.push({ label: "Tréning s jednoručkami", reels: sportS1 });
-    if (sportS2.length) sets.push({ label: "Tréning s kladkou", reels: sportS2 });
-    if (sportS3.length) sets.push({ label: "Tréning na lavičke", reels: sportS3 });
-    if (sportS4.length) sets.push({ label: "Tréning s fitloptou", reels: sportS4 });
-    if (sportS5.length) sets.push({ label: "Tréning s expanderom", reels: sportS5 });
+    if (sportS1.length) sets.push({ label: "SportWell Blackpink", reels: sportS1 });
+    if (sportS2.length) sets.push({ label: "SportWell White", reels: sportS2 });
+    if (sportS3.length) sets.push({ label: "SportWell All Black", reels: sportS3 });
+    if (sportS4.length) sets.push({ label: "SportWell Pink", reels: sportS4 });
+    if (sportS5.length) sets.push({ label: "SportWell Blue", reels: sportS5 });
     return sets;
   }, []);
 
