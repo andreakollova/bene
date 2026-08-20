@@ -23,24 +23,24 @@ export default function RepSettingsPage() {
           onClick={() => router.back()}
           className="w-11 h-11 flex items-center justify-center"
         >
-          <ArrowLeft className="text-ink" size={22} strokeWidth={1.75} />
+          <ArrowLeft className="text-black" size={22} strokeWidth={1.75} />
         </button>
-        <h1 className="font-serif text-xl font-medium text-ink">Opakovania</h1>
+        <h1 className="font-serif text-xl font-medium text-black">Opakovania</h1>
       </div>
 
-      <div className="flex items-start gap-3 bg-sage-soft rounded-card p-4">
-        <TrendingUp className="text-sage shrink-0 mt-0.5" size={20} strokeWidth={1.75} />
-        <p className="text-sage-dark">
+      <div className="flex items-start gap-3 border border-gray-200 rounded-[20px] p-4">
+        <TrendingUp className="text-black shrink-0 mt-0.5" size={20} strokeWidth={1.75} />
+        <p className="text-gray-400 text-sm">
           Každý týždeň sa automaticky pridá nastavený počet opakovaní.
           Aktuálne si v týždni {currentWeekIndex + 1}.
         </p>
       </div>
 
       <div>
-        <h2 className="font-serif text-xl font-medium text-ink">
+        <h2 className="font-serif text-xl font-medium text-black">
           Nastavenia cvikov
         </h2>
-        <p className="text-ink-muted mt-1">
+        <p className="text-gray-400 mt-1">
           Nastav predvolené opakovania alebo sekundy pre každý cvik.
         </p>
       </div>
@@ -64,7 +64,7 @@ export default function RepSettingsPage() {
           return (
             <Card key={exercise.id} className="p-4">
               <div className="flex items-center justify-between mb-3">
-                <span className="font-medium text-ink flex-1 mr-2 truncate">
+                <span className="font-medium text-black flex-1 mr-2 truncate">
                   {exercise.name}
                 </span>
                 <Chip
@@ -77,17 +77,17 @@ export default function RepSettingsPage() {
               <div className="grid grid-cols-3 gap-3">
                 {/* Sets */}
                 <div>
-                  <p className="text-xs text-ink-muted mb-1">Série</p>
-                  <div className="flex items-center bg-cream-200 rounded-input overflow-hidden">
+                  <p className="text-[10px] text-gray-400 mb-1 uppercase tracking-widest">Série</p>
+                  <div className="flex items-center bg-gray-100 rounded-input overflow-hidden">
                     <button
                       className="w-8 h-9 flex items-center justify-center"
                       onClick={() =>
                         update({ defaultSets: Math.max(1, s.defaultSets - 1) })
                       }
                     >
-                      <Minus className="text-ink-muted" size={14} />
+                      <Minus className="text-gray-400" size={14} />
                     </button>
-                    <span className="flex-1 text-center text-sm font-medium text-ink">
+                    <span className="flex-1 text-center text-sm font-medium text-black">
                       {s.defaultSets}
                     </span>
                     <button
@@ -96,17 +96,17 @@ export default function RepSettingsPage() {
                         update({ defaultSets: s.defaultSets + 1 })
                       }
                     >
-                      <Plus className="text-ink-muted" size={14} />
+                      <Plus className="text-gray-400" size={14} />
                     </button>
                   </div>
                 </div>
 
                 {/* Reps */}
                 <div>
-                  <p className="text-xs text-ink-muted mb-1">
+                  <p className="text-[10px] text-gray-400 mb-1 uppercase tracking-widest">
                     {s.isTimed ? "Sekúnd" : "Opak."}
                   </p>
-                  <div className="flex items-center bg-cream-200 rounded-input overflow-hidden">
+                  <div className="flex items-center bg-gray-100 rounded-input overflow-hidden">
                     <button
                       className="w-8 h-9 flex items-center justify-center"
                       onClick={() =>
@@ -118,9 +118,9 @@ export default function RepSettingsPage() {
                         })
                       }
                     >
-                      <Minus className="text-ink-muted" size={14} />
+                      <Minus className="text-gray-400" size={14} />
                     </button>
-                    <span className="flex-1 text-center text-sm font-medium text-ink">
+                    <span className="flex-1 text-center text-sm font-medium text-black">
                       {s.defaultReps}
                     </span>
                     <button
@@ -132,15 +132,15 @@ export default function RepSettingsPage() {
                         })
                       }
                     >
-                      <Plus className="text-ink-muted" size={14} />
+                      <Plus className="text-gray-400" size={14} />
                     </button>
                   </div>
                 </div>
 
                 {/* Weekly increment */}
                 <div>
-                  <p className="text-xs text-ink-muted mb-1">+/týždeň</p>
-                  <div className="flex items-center bg-cream-200 rounded-input overflow-hidden">
+                  <p className="text-[10px] text-gray-400 mb-1 uppercase tracking-widest">+/týžd.</p>
+                  <div className="flex items-center bg-gray-100 rounded-input overflow-hidden">
                     <button
                       className="w-8 h-9 flex items-center justify-center"
                       onClick={() =>
@@ -152,9 +152,9 @@ export default function RepSettingsPage() {
                         })
                       }
                     >
-                      <Minus className="text-ink-muted" size={14} />
+                      <Minus className="text-gray-400" size={14} />
                     </button>
-                    <span className="flex-1 text-center text-sm font-medium text-ink">
+                    <span className="flex-1 text-center text-sm font-medium text-black">
                       {s.weeklyIncrement}
                     </span>
                     <button
@@ -165,13 +165,13 @@ export default function RepSettingsPage() {
                         })
                       }
                     >
-                      <Plus className="text-ink-muted" size={14} />
+                      <Plus className="text-gray-400" size={14} />
                     </button>
                   </div>
                 </div>
               </div>
 
-              <p className="text-sm text-sage mt-3">
+              <p className="text-[10px] text-gray-400 mt-3 uppercase tracking-widest">
                 Tento týždeň: {s.defaultSets}x{currentReps}
                 {s.isTimed ? "s" : ""}
               </p>

@@ -17,10 +17,6 @@ import { useHydrated } from "@/hooks/useHydrated";
 import { SEED_TRAINER_REELS } from "@/data/seedData";
 import type { VideoSession } from "@/data/seedData";
 
-// ---------------------------------------------------------------------------
-// Reel set definitions
-// ---------------------------------------------------------------------------
-
 interface ReelSet {
   id: string;
   label: string;
@@ -60,10 +56,6 @@ const REEL_SETS: ReelSet[] = [
   },
 ];
 
-// ---------------------------------------------------------------------------
-// Sub-components
-// ---------------------------------------------------------------------------
-
 function Toggle({
   checked,
   onChange,
@@ -78,7 +70,7 @@ function Toggle({
       aria-checked={checked}
       onClick={() => onChange(!checked)}
       className={`relative inline-flex h-6 w-11 flex-shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none ${
-        checked ? "bg-sage" : "bg-cream-300"
+        checked ? "bg-black" : "bg-gray-200"
       }`}
     >
       <span
@@ -112,26 +104,23 @@ function ExerciseRow({
     if (trimmed && trimmed !== reel.title) {
       onSaveTitle(trimmed);
     } else if (!trimmed) {
-      // revert to original if empty
       setDraft(displayTitle);
     }
     setEditing(false);
   }
 
   return (
-    <div className="flex items-center gap-3 py-3 border-b border-cream-200 last:border-0">
-      {/* Thumbnail */}
+    <div className="flex items-center gap-3 py-3 border-b border-gray-200 last:border-0">
       {reel.coverUrl ? (
         <img
           src={reel.coverUrl}
           alt={displayTitle}
-          className="w-14 h-14 rounded-lg object-cover flex-shrink-0 bg-cream-200"
+          className="w-14 h-14 rounded-input object-cover flex-shrink-0 bg-gray-100"
         />
       ) : (
-        <div className="w-14 h-14 rounded-lg bg-cream-200 flex-shrink-0" />
+        <div className="w-14 h-14 rounded-input bg-gray-100 flex-shrink-0" />
       )}
 
-      {/* Title area */}
       <div className="flex-1 min-w-0">
         {editing ? (
           <div className="flex items-center gap-2">
@@ -147,12 +136,12 @@ function ExerciseRow({
                   setEditing(false);
                 }
               }}
-              className="flex-1 min-w-0 text-sm font-medium text-ink bg-cream-50 border border-sage rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-sage"
+              className="flex-1 min-w-0 text-sm font-medium text-black bg-white border border-gray-200 rounded-input px-2 py-1 focus:outline-none focus:ring-1 focus:ring-black"
             />
             <button
               type="button"
               onClick={commitEdit}
-              className="text-sage flex-shrink-0"
+              className="text-black flex-shrink-0"
               aria-label="Potvrdiť"
             >
               <Check size={16} />
@@ -160,14 +149,14 @@ function ExerciseRow({
           </div>
         ) : (
           <div className="flex items-center gap-1.5">
-            <p className="text-sm font-medium text-ink truncate">{displayTitle}</p>
+            <p className="text-sm font-medium text-black truncate">{displayTitle}</p>
             <button
               type="button"
               onClick={() => {
                 setDraft(displayTitle);
                 setEditing(true);
               }}
-              className="text-ink-faint hover:text-ink-muted flex-shrink-0"
+              className="text-gray-300 hover:text-gray-400 flex-shrink-0"
               aria-label="Upraviť názov"
             >
               <Pencil size={13} />
@@ -175,13 +164,12 @@ function ExerciseRow({
           </div>
         )}
         {customTitle && customTitle !== reel.title && (
-          <p className="text-[11px] text-ink-faint mt-0.5 truncate">
+          <p className="text-[11px] text-gray-300 mt-0.5 truncate">
             Pôvodne: {reel.title}
           </p>
         )}
       </div>
 
-      {/* Toggle */}
       <div className="flex-shrink-0">
         <Toggle checked={included} onChange={onToggle} />
       </div>
@@ -215,15 +203,15 @@ function ReelSetSection({
         className="w-full flex items-center justify-between p-4"
       >
         <div className="text-left">
-          <p className="font-medium text-ink">{reelSet.label}</p>
-          <p className="text-sm text-ink-muted mt-0.5">
+          <p className="font-medium text-black">{reelSet.label}</p>
+          <p className="text-sm text-gray-400 mt-0.5">
             {includedCount} / {reelSet.reels.length} cvičení
           </p>
         </div>
         {expanded ? (
-          <ChevronDown className="text-ink-faint flex-shrink-0" size={18} />
+          <ChevronDown className="text-gray-300 flex-shrink-0" size={18} />
         ) : (
-          <ChevronRight className="text-ink-faint flex-shrink-0" size={18} />
+          <ChevronRight className="text-gray-300 flex-shrink-0" size={18} />
         )}
       </button>
 
@@ -244,10 +232,6 @@ function ReelSetSection({
     </Card>
   );
 }
-
-// ---------------------------------------------------------------------------
-// Page
-// ---------------------------------------------------------------------------
 
 export default function ManagePage() {
   const router = useRouter();
@@ -294,25 +278,25 @@ export default function ManagePage() {
   const weeks = currentPlan?.weeks ?? [];
 
   return (
-    <div className="w-full px-6 py-6 space-y-8 pb-32">
+    <div className="w-full px-6 py-8 space-y-8 pb-32">
       {/* Header */}
       <div className="flex items-center gap-3">
         <button
           type="button"
           onClick={() => router.back()}
-          className="text-ink-muted hover:text-ink transition-colors"
+          className="text-gray-400 hover:text-black transition-colors"
           aria-label="Späť"
         >
           <ArrowLeft size={22} strokeWidth={1.75} />
         </button>
-        <h1 className="font-serif text-2xl font-semibold text-ink">
+        <h1 className="font-serif text-2xl font-semibold text-black">
           Spravovať tréningy
         </h1>
       </div>
 
-      {/* Section: Moje tréningy */}
+      {/* Reel sets */}
       <div>
-        <p className="text-[11px] font-semibold tracking-[1.2px] uppercase text-ink-faint mb-3">
+        <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-3">
           MOJE TRÉNINGY
         </p>
         {REEL_SETS.map((set) => (
@@ -327,14 +311,14 @@ export default function ManagePage() {
         ))}
       </div>
 
-      {/* Section: Týždne */}
+      {/* Weeks */}
       <div>
-        <p className="text-[11px] font-semibold tracking-[1.2px] uppercase text-ink-faint mb-3">
+        <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-3">
           TÝŽDNE
         </p>
         {weeks.length === 0 && (
           <Card className="p-4">
-            <p className="text-sm text-ink-muted">Žiadny aktívny plán.</p>
+            <p className="text-sm text-gray-400">Žiadny aktívny plán.</p>
           </Card>
         )}
         {weeks.map((week) => {
@@ -347,20 +331,20 @@ export default function ManagePage() {
             <Card key={week.weekNumber} className="mb-2">
               <div className="flex items-center justify-between">
                 <div className="flex-1 min-w-0 pr-4">
-                  <p className="font-medium text-ink">
+                  <p className="font-medium text-black">
                     Týždeň {week.weekNumber}
                     {" "}
-                    <span className="font-normal text-ink-muted">
+                    <span className="font-normal text-gray-400">
                       — {week.title}
                     </span>
                   </p>
-                  <p className="text-sm text-ink-muted mt-0.5">
+                  <p className="text-sm text-gray-400 mt-0.5">
                     {exerciseCount} cvičení · {week.days.length} tréningov
                   </p>
                 </div>
                 <div className="flex items-center gap-2 flex-shrink-0">
                   {isDone && (
-                    <span className="text-[11px] font-semibold text-sage uppercase tracking-wide">
+                    <span className="text-[10px] font-semibold text-black uppercase tracking-widest">
                       Hotovo
                     </span>
                   )}
@@ -370,7 +354,7 @@ export default function ManagePage() {
                     onChange={(e) =>
                       handleToggleWeek(week.weekNumber, e.target.checked)
                     }
-                    className="w-5 h-5 rounded accent-sage cursor-pointer"
+                    className="w-5 h-5 rounded accent-black cursor-pointer"
                     aria-label={`Týždeň ${week.weekNumber} hotový`}
                   />
                 </div>
@@ -380,13 +364,13 @@ export default function ManagePage() {
         })}
       </div>
 
-      {/* Section: Shuffle */}
+      {/* Shuffle */}
       <div>
-        <p className="text-[11px] font-semibold tracking-[1.2px] uppercase text-ink-faint mb-3">
+        <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-3">
           SHUFFLE
         </p>
         <Card className="p-5">
-          <p className="text-sm text-ink-muted mb-4">
+          <p className="text-sm text-gray-400 mb-4">
             Náhodne zamiešaj poradie cvičení v každom tréningu plánu.
           </p>
           <Button
@@ -398,7 +382,7 @@ export default function ManagePage() {
             {shuffled ? "Zamiešané!" : "Zamiešať cvičenia"}
           </Button>
           {!currentPlan && (
-            <p className="text-xs text-ink-faint mt-3 text-center">
+            <p className="text-[10px] text-gray-300 mt-3 text-center uppercase tracking-widest">
               Najprv aktivuj plán v domovskej obrazovke.
             </p>
           )}

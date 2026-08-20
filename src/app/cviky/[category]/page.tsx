@@ -42,44 +42,44 @@ export default function CategoryPage() {
   if (!hydrated) return null;
 
   return (
-    <div className="w-full px-6 py-6 space-y-4">
+    <div className="w-full px-6 py-8 space-y-5">
       <div className="flex items-center gap-3">
         <button
           onClick={() => router.back()}
           className="w-11 h-11 flex items-center justify-center"
         >
-          <ArrowLeft className="text-ink" size={22} strokeWidth={1.75} />
+          <ArrowLeft className="text-black" size={22} strokeWidth={1.75} />
         </button>
         <div>
-          <h1 className="font-serif text-xl font-semibold text-ink">{label}</h1>
-          <p className="text-xs text-ink-muted">
+          <h1 className="font-serif text-xl font-semibold text-black">{label}</h1>
+          <p className="text-[10px] text-gray-400 uppercase tracking-widest mt-0.5">
             {reels.length} {reels.length === 1 ? "cvik" : reels.length < 5 ? "cviky" : "cvikov"}
           </p>
         </div>
       </div>
 
       {reels.length === 0 ? (
-        <p className="text-ink-muted py-8 text-center">Žiadne cviky v tejto kategórii</p>
+        <p className="text-gray-400 py-8 text-center">Žiadne cviky v tejto kategórii</p>
       ) : (
         <div className="space-y-3">
           {reels.map((v) => (
             <Link
               key={v.id}
               href={`/video/${v.id}`}
-              className="flex items-center gap-3 bg-cream-100 border border-cream-200 rounded-card p-3 active:bg-cream-200 transition-colors"
+              className="flex items-center gap-3 bg-white border border-gray-200 rounded-[20px] p-3 active:bg-gray-100 transition-colors"
             >
               <div className="w-16 h-16 rounded-input overflow-hidden shrink-0">
                 {v.coverUrl ? (
                   <img src={v.coverUrl} alt={v.title} className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full bg-cream-200" />
+                  <div className="w-full h-full bg-gray-100" />
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-medium text-ink text-sm leading-tight">{v.title}</p>
-                <p className="text-xs text-ink-muted mt-0.5 line-clamp-1">{v.description}</p>
+                <p className="font-medium text-black text-sm leading-tight">{v.title}</p>
+                <p className="text-xs text-gray-400 mt-0.5 line-clamp-1">{v.description}</p>
               </div>
-              <Play size={14} className="text-ink-faint shrink-0" />
+              <Play size={14} className="text-gray-300 shrink-0" />
             </Link>
           ))}
         </div>
