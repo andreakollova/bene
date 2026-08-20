@@ -342,7 +342,7 @@ export default function DomovPage() {
         </div>
       </section>
 
-      <div className="pb-8" />
+      <div className="pb-2" />
     </div>
   );
 }
