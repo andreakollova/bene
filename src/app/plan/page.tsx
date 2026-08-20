@@ -57,7 +57,7 @@ export default function PlanPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <span className="text-[10px] text-gray-400 uppercase tracking-widest">
-                        Deň {i + 1}
+                        Session {String(i + 1).padStart(2, "0")}
                       </span>
                       {done && (
                         <span className="text-[10px] text-gray-400 uppercase tracking-widest">
