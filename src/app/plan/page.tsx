@@ -48,7 +48,7 @@ export default function PlanPage() {
       </div>
 
       {plan.weeks.map((week, weekIdx) => {
-        const isLocked = weekIdx > currentWeekIndex + 1;
+        const isLocked = false;
         const isCurrent = weekIdx === currentWeekIndex;
 
         return (
