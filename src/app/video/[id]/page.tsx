@@ -86,7 +86,7 @@ export default function VideoPage() {
     : null;
 
   const totalSets = settings?.defaultSets ?? 3;
-  const exerciseDuration = currentReps ?? 30;
+  const exerciseDuration = settings?.isTimed ? (currentReps ?? 30) : 30;
   const restDuration = 30;
 
   const startTimer = useCallback(() => {
@@ -259,7 +259,7 @@ export default function VideoPage() {
                 {Math.floor(timerSeconds / 60)}:{String(timerSeconds % 60).padStart(2, "0")}
               </p>
               <p className="text-[10px] text-gray-400 mt-2 uppercase tracking-widest">
-                {isRest ? "oddych" : `${exerciseDuration}s na sériu · ${restDuration}s oddych`}
+                {isRest ? "oddych" : `${exerciseDuration}s na cvik · ${restDuration}s oddych`}
               </p>
             </div>
 
