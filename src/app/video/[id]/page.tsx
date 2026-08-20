@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft, Volume2, VolumeX, Repeat, Clock, Music } from "lucide-react";
 import {
@@ -32,6 +32,13 @@ export default function VideoPage() {
   const [looping, setLooping] = useState(true);
   const repSettings = useStore((s) => s.repSettings);
   const currentWeekIndex = useStore((s) => s.currentWeekIndex);
+
+  // Workout timer state
+  const [timerRunning, setTimerRunning] = useState(false);
+  const [timerSeconds, setTimerSeconds] = useState(0);
+  const [currentSerie, setCurrentSerie] = useState(1);
+  const [isRest, setIsRest] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const id = params?.id;
 
@@ -79,6 +86,58 @@ export default function VideoPage() {
   const currentReps = settings
     ? settings.defaultReps + settings.weeklyIncrement * currentWeekIndex
     : null;
+
+  // Timer logic
+  const totalSets = settings?.defaultSets ?? 3;
+  const exerciseDuration = currentReps ?? 30;
+  const restDuration = 30;
+
+  const startTimer = useCallback(() => {
+    setTimerSeconds(exerciseDuration);
+    setTimerRunning(true);
+    setIsRest(false);
+  }, [exerciseDuration]);
+
+  const stopTimer = useCallback(() => {
+    setTimerRunning(false);
+    if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
+  }, []);
+
+  const resetTimer = useCallback(() => {
+    stopTimer();
+    setCurrentSerie(1);
+    setIsRest(false);
+    setTimerSeconds(exerciseDuration);
+  }, [stopTimer, exerciseDuration]);
+
+  useEffect(() => {
+    if (!timerRunning) {
+      if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
+      return;
+    }
+    timerRef.current = setInterval(() => {
+      setTimerSeconds((prev) => {
+        if (prev <= 1) {
+          if (isRest) {
+            // Rest done → next serie
+            setIsRest(false);
+            setCurrentSerie((s) => s + 1);
+            return exerciseDuration;
+          } else if (currentSerie < totalSets) {
+            // Serie done → rest
+            setIsRest(true);
+            return restDuration;
+          } else {
+            // All done
+            setTimerRunning(false);
+            return 0;
+          }
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [timerRunning, isRest, currentSerie, totalSets, exerciseDuration, restDuration]);
 
   const toggleMute = () => {
     if (videoRef.current) {
@@ -170,42 +229,76 @@ export default function VideoPage() {
           </button>
         </div>
 
-        {/* Reps info for trainer reels */}
+        {/* Workout timer for trainer reels */}
         {isTrainerReel && settings && (
           <div className="bg-cream-100 border border-cream-200 rounded-card p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Clock size={16} className="text-sage" strokeWidth={1.75} />
+            {/* Serie indicator */}
+            <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-semibold text-ink">
-                Koľko robiť
+                Séria {currentSerie} z {totalSets}
+              </span>
+              <span className={`text-xs font-semibold px-2 py-0.5 rounded-pill ${
+                isRest ? "bg-amber/20 text-amber" : timerRunning ? "bg-sage/20 text-sage" : "bg-cream-200 text-ink-muted"
+              }`}>
+                {isRest ? "Oddych" : timerRunning ? "Cvičenie" : currentSerie > totalSets ? "Hotovo!" : "Pripravená"}
               </span>
             </div>
-            <div className="flex gap-4">
-              <div>
-                <p className="font-serif text-2xl font-semibold text-ink">
-                  {settings.defaultSets}
-                </p>
-                <p className="text-xs text-ink-muted">série</p>
-              </div>
-              <div className="w-px bg-cream-200" />
-              <div>
-                <p className="font-serif text-2xl font-semibold text-ink">
-                  {currentReps}{settings.isTimed ? "s" : ""}
-                </p>
-                <p className="text-xs text-ink-muted">
-                  {settings.isTimed ? "sekúnd" : "opakovaní"}
-                </p>
-              </div>
-              <div className="w-px bg-cream-200" />
-              <div>
-                <p className="font-serif text-2xl font-semibold text-ink">
-                  30s
-                </p>
-                <p className="text-xs text-ink-muted">oddych</p>
-              </div>
+
+            {/* Big countdown */}
+            <div className="text-center py-4">
+              <p className="font-serif text-5xl font-semibold text-ink" style={{ fontVariantNumeric: "tabular-nums" }}>
+                {Math.floor(timerSeconds / 60)}:{String(timerSeconds % 60).padStart(2, "0")}
+              </p>
+              <p className="text-xs text-ink-muted mt-1">
+                {isRest ? "oddych" : `${exerciseDuration}s na sériu · ${restDuration}s oddych`}
+              </p>
             </div>
-            <p className="text-xs text-ink-faint mt-2">
-              Týždeň {currentWeekIndex + 1} · +{settings.weeklyIncrement}/týždeň
-            </p>
+
+            {/* Progress bar */}
+            <div className="h-1.5 bg-cream-200 rounded-pill overflow-hidden mb-4">
+              <div
+                className="h-full rounded-pill transition-all duration-1000"
+                style={{
+                  width: `${((isRest ? restDuration : exerciseDuration) - timerSeconds) / (isRest ? restDuration : exerciseDuration) * 100}%`,
+                  backgroundColor: isRest ? "#C89B5A" : "#7C9070",
+                }}
+              />
+            </div>
+
+            {/* Controls */}
+            <div className="flex gap-2">
+              {!timerRunning && currentSerie <= totalSets ? (
+                <button
+                  onClick={startTimer}
+                  className="flex-1 py-2.5 rounded-btn font-semibold text-sm transition-colors"
+                  style={{ backgroundColor: "#3D3929", color: "#FAF8F5" }}
+                >
+                  {currentSerie === 1 && !isRest ? "Štart" : "Pokračovať"}
+                </button>
+              ) : timerRunning ? (
+                <button
+                  onClick={stopTimer}
+                  className="flex-1 py-2.5 rounded-btn border border-cream-200 font-semibold text-sm text-ink-muted"
+                >
+                  Pauza
+                </button>
+              ) : (
+                <button
+                  onClick={resetTimer}
+                  className="flex-1 py-2.5 rounded-btn border border-cream-200 font-semibold text-sm text-ink-muted"
+                >
+                  Znova
+                </button>
+              )}
+              {(timerRunning || currentSerie > 1) && currentSerie <= totalSets && (
+                <button
+                  onClick={resetTimer}
+                  className="px-4 py-2.5 rounded-btn border border-cream-200 text-sm text-ink-muted"
+                >
+                  Reset
+                </button>
+              )}
+            </div>
           </div>
         )}
 

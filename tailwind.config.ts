@@ -37,10 +37,10 @@ const config: Config = {
         sans: ['var(--font-hanken)', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
-        card: '12px',
-        btn: '10px',
-        input: '8px',
-        chip: '8px',
+        card: '16px',
+        btn: '14px',
+        input: '12px',
+        chip: '12px',
         pill: '999px',
       },
       spacing: {

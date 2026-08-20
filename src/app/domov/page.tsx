@@ -308,22 +308,22 @@ export default function DomovPage() {
         </section>
       ))}
 
-      {/* ── Kategórie podľa vybavenia ── */}
+      {/* ── Podľa vybavenia ── */}
       <section>
         <h2 className="font-serif text-xl font-medium text-ink mb-3">
           Podľa vybavenia
         </h2>
-        <div className="space-y-3">
+        <div className="grid grid-cols-2 gap-3">
           {equipmentCategories.map((cat) => (
             <Link
               key={cat.label}
-              href={`/cviky?cat=${encodeURIComponent(cat.label)}`}
-              className="flex items-center gap-3 bg-cream-100 border border-cream-200 rounded-card p-3 active:bg-cream-200 transition-colors"
+              href={`/cviky/${encodeURIComponent(cat.label)}`}
+              className="bg-cream-100 border border-cream-200 rounded-card overflow-hidden active:bg-cream-200 transition-colors"
             >
-              {/* Thumbnail grid */}
-              <div className="grid grid-cols-2 gap-0.5 w-14 h-14 rounded-input overflow-hidden shrink-0">
+              {/* 2x2 thumbnail grid */}
+              <div className="grid grid-cols-2 gap-px h-24">
                 {cat.reels.slice(0, 4).map((r, i) => (
-                  <div key={i} className="w-full h-full">
+                  <div key={i} className="overflow-hidden">
                     {r.coverUrl ? (
                       <img src={r.coverUrl} alt="" className="w-full h-full object-cover" />
                     ) : (
@@ -332,11 +332,12 @@ export default function DomovPage() {
                   </div>
                 ))}
               </div>
-              <div className="flex-1 min-w-0">
+              <div className="p-3">
                 <p className="font-medium text-ink text-sm">{cat.label}</p>
-                <p className="text-xs text-ink-muted mt-0.5">{cat.reels.length} cvikov</p>
+                <p className="text-xs text-ink-muted mt-0.5">
+                  {cat.reels.length} {cat.reels.length === 1 ? "cvik" : cat.reels.length < 5 ? "cviky" : "cvikov"}
+                </p>
               </div>
-              <ChevronRight className="text-ink-faint shrink-0" size={16} />
             </Link>
           ))}
         </div>
