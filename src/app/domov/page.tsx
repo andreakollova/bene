@@ -80,6 +80,34 @@ export default function DomovPage() {
     return sets;
   }, []);
 
+  // Equipment categories - each reel tagged by equipment visible in video
+  const equipmentCategories = useMemo(() => {
+    const cats: Record<string, typeof SEED_TRAINER_REELS> = {
+      "Vlastná váha": [],
+      "S expanderom": [],
+      "S činkami": [],
+      "S fitloptou": [],
+      "Na lavičke": [],
+      "Pri stene": [],
+      "S foam rollerom": [],
+    };
+    for (const r of SEED_TRAINER_REELS) {
+      const t = r.title.toLowerCase();
+      const d = r.description.toLowerCase();
+      const text = t + " " + d;
+      if (text.includes("expand") || text.includes("kladk")) cats["S expanderom"].push(r);
+      else if (text.includes("čink") || text.includes("jednoruč") || text.includes("kettlebell")) cats["S činkami"].push(r);
+      else if (text.includes("fitlopt") || text.includes("lopt")) cats["S fitloptou"].push(r);
+      else if (text.includes("lavičk") || text.includes("prone")) cats["Na lavičke"].push(r);
+      else if (text.includes("sten") || text.includes("wall")) cats["Pri stene"].push(r);
+      else if (text.includes("foam") || text.includes("roller")) cats["S foam rollerom"].push(r);
+      else cats["Vlastná váha"].push(r);
+    }
+    return Object.entries(cats)
+      .filter(([, reels]) => reels.length > 0)
+      .map(([label, reels]) => ({ label, reels }));
+  }, []);
+
   if (!hydrated) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -131,7 +159,7 @@ export default function DomovPage() {
               return (
                 <div className="text-sm text-ink-muted mt-1 mb-4 space-y-1">
                   {vs && <p>Video: {vs.title}</p>}
-                  <p>+ {currentDay.exercises.length} cviky ({trainerLabel})</p>
+                  <p>+ {currentDay.exercises.length} {currentDay.exercises.length === 1 ? "cvik" : currentDay.exercises.length < 5 ? "cviky" : "cvikov"} ({trainerLabel})</p>
                 </div>
               );
             })()}
@@ -251,6 +279,40 @@ export default function DomovPage() {
           </div>
         </section>
       ))}
+
+      {/* ── Kategórie podľa vybavenia ── */}
+      <section>
+        <h2 className="font-serif text-xl font-medium text-ink mb-3">
+          Podľa vybavenia
+        </h2>
+        <div className="space-y-3">
+          {equipmentCategories.map((cat) => (
+            <Link
+              key={cat.label}
+              href={`/cviky?cat=${encodeURIComponent(cat.label)}`}
+              className="flex items-center gap-3 bg-cream-100 border border-cream-200 rounded-card p-3 active:bg-cream-200 transition-colors"
+            >
+              {/* Thumbnail grid */}
+              <div className="grid grid-cols-2 gap-0.5 w-14 h-14 rounded-input overflow-hidden shrink-0">
+                {cat.reels.slice(0, 4).map((r, i) => (
+                  <div key={i} className="w-full h-full">
+                    {r.coverUrl ? (
+                      <img src={r.coverUrl} alt="" className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full bg-cream-200" />
+                    )}
+                  </div>
+                ))}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-medium text-ink text-sm">{cat.label}</p>
+                <p className="text-xs text-ink-muted mt-0.5">{cat.reels.length} cvikov</p>
+              </div>
+              <ChevronRight className="text-ink-faint shrink-0" size={16} />
+            </Link>
+          ))}
+        </div>
+      </section>
 
       <div className="pb-8" />
     </div>
