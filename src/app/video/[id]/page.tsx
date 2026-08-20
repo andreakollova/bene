@@ -84,9 +84,14 @@ export default function VideoPage() {
     ? settings.defaultReps + settings.weeklyIncrement * currentWeekIndex
     : null;
 
-  const totalSets = settings?.defaultSets ?? 3;
-  const exerciseDuration = settings?.isTimed ? (currentReps ?? 30) : 30;
-  const restDuration = 30;
+  const [editSets, setEditSets] = useState(settings?.defaultSets ?? 3);
+  const [editExDuration, setEditExDuration] = useState(30);
+  const [editRestDuration, setEditRestDuration] = useState(30);
+  const [showSettings, setShowSettings] = useState(false);
+
+  const totalSets = editSets;
+  const exerciseDuration = editExDuration;
+  const restDuration = editRestDuration;
 
   const startTimer = useCallback(() => {
     setTimerSeconds(exerciseDuration);
@@ -114,6 +119,8 @@ export default function VideoPage() {
     timerRef.current = setInterval(() => {
       setTimerSeconds((prev) => {
         if (prev <= 1) {
+          // Vibrate on phase change
+          if (navigator.vibrate) navigator.vibrate(200);
           if (isRest) {
             setIsRest(false);
             setCurrentSerie((s) => s + 1);
@@ -122,6 +129,7 @@ export default function VideoPage() {
             setIsRest(true);
             return restDuration;
           } else {
+            if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
             setTimerRunning(false);
             return 0;
           }
@@ -257,10 +265,43 @@ export default function VideoPage() {
               <p className="font-serif text-5xl font-semibold text-black" style={{ fontVariantNumeric: "tabular-nums" }}>
                 {Math.floor(timerSeconds / 60)}:{String(timerSeconds % 60).padStart(2, "0")}
               </p>
-              <p className="text-[10px] text-gray-400 mt-2 uppercase tracking-widest">
+              <button
+                onClick={() => setShowSettings(!showSettings)}
+                className="text-[10px] text-gray-400 mt-2 uppercase tracking-widest underline-offset-2 hover:underline"
+              >
                 {isRest ? "oddych" : `${exerciseDuration}s na cvik · ${restDuration}s oddych`}
-              </p>
+              </button>
             </div>
+
+            {/* Inline settings */}
+            {showSettings && !timerRunning && (
+              <div className="grid grid-cols-3 gap-3 mb-4 pb-4 border-b border-gray-200">
+                <div className="text-center">
+                  <p className="text-[9px] text-gray-400 uppercase tracking-widest mb-1">Série</p>
+                  <div className="flex items-center justify-center gap-1">
+                    <button onClick={() => setEditSets(Math.max(1, editSets - 1))} className="w-7 h-7 rounded-full border border-gray-200 text-gray-400 text-sm">-</button>
+                    <span className="font-serif text-lg font-semibold text-black w-6 text-center">{editSets}</span>
+                    <button onClick={() => setEditSets(editSets + 1)} className="w-7 h-7 rounded-full border border-gray-200 text-gray-400 text-sm">+</button>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <p className="text-[9px] text-gray-400 uppercase tracking-widest mb-1">Cvik (s)</p>
+                  <div className="flex items-center justify-center gap-1">
+                    <button onClick={() => setEditExDuration(Math.max(5, editExDuration - 5))} className="w-7 h-7 rounded-full border border-gray-200 text-gray-400 text-sm">-</button>
+                    <span className="font-serif text-lg font-semibold text-black w-6 text-center">{editExDuration}</span>
+                    <button onClick={() => setEditExDuration(editExDuration + 5)} className="w-7 h-7 rounded-full border border-gray-200 text-gray-400 text-sm">+</button>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <p className="text-[9px] text-gray-400 uppercase tracking-widest mb-1">Oddych (s)</p>
+                  <div className="flex items-center justify-center gap-1">
+                    <button onClick={() => setEditRestDuration(Math.max(5, editRestDuration - 5))} className="w-7 h-7 rounded-full border border-gray-200 text-gray-400 text-sm">-</button>
+                    <span className="font-serif text-lg font-semibold text-black w-6 text-center">{editRestDuration}</span>
+                    <button onClick={() => setEditRestDuration(editRestDuration + 5)} className="w-7 h-7 rounded-full border border-gray-200 text-gray-400 text-sm">+</button>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden mb-5">
               <div
