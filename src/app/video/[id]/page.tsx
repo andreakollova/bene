@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { ArrowLeft, Volume2, VolumeX, Repeat, Clock } from "lucide-react";
+import { ArrowLeft, Volume2, VolumeX, Repeat, Clock, Music } from "lucide-react";
 import {
   SEED_VIDEO_SESSIONS,
   SEED_STRETCHES,
@@ -11,6 +11,18 @@ import {
 } from "@/data/seedData";
 import { useStore } from "@/store/useStore";
 import { Button } from "@/components/ui";
+import { BeneIdle, BeneOk, BeneCelebrate, BeneStretch } from "@/components/mascot";
+
+const BENE_QUOTES = [
+  { Mascot: BeneOk, text: "Super forma, len tak ďalej!" },
+  { Mascot: BeneCelebrate, text: "Každé opakovanie sa počíta." },
+  { Mascot: BeneIdle, text: "Dýchaj, sústreď sa na pohyb." },
+  { Mascot: BeneStretch, text: "Tvoje telo ti poďakuje." },
+  { Mascot: BeneOk, text: "Konzistentnosť je kľúč." },
+  { Mascot: BeneCelebrate, text: "Si silnejšia ako včera!" },
+  { Mascot: BeneIdle, text: "Pomaly a kontrolovane." },
+  { Mascot: BeneStretch, text: "Rehabilitácia je tréning techniky." },
+];
 
 export default function VideoPage() {
   const params = useParams<{ id: string }>();
@@ -122,33 +134,39 @@ export default function VideoPage() {
 
       {/* Controls */}
       <div className="px-6 py-4 space-y-4">
-        {/* Sound + Loop buttons */}
-        <div className="flex gap-3">
+        {/* Sound controls */}
+        <div className="flex gap-2">
           <button
             onClick={toggleMute}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-btn border text-sm font-medium transition-colors ${
-              muted
-                ? "bg-cream-200 border-cream-200 text-ink"
+            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-btn border text-sm font-medium transition-colors ${
+              !muted
+                ? "border-sage text-sage"
                 : "border-cream-200 text-ink-muted"
             }`}
           >
-            {muted ? (
-              <VolumeX size={18} strokeWidth={1.75} />
-            ) : (
-              <Volume2 size={18} strokeWidth={1.75} />
-            )}
-            {muted ? "Zvuk vypnutý" : "Zvuk zapnutý"}
+            <Volume2 size={16} strokeWidth={1.75} />
+            Zvuk videa
+          </button>
+          <button
+            onClick={() => { setMuted(true); if (videoRef.current) videoRef.current.muted = true; }}
+            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-btn border text-sm font-medium transition-colors ${
+              muted
+                ? "border-sage text-sage"
+                : "border-cream-200 text-ink-muted"
+            }`}
+          >
+            <Music size={16} strokeWidth={1.75} />
+            Vlastná hudba
           </button>
           <button
             onClick={toggleLoop}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-btn border text-sm font-medium transition-colors ${
+            className={`flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-btn border text-sm font-medium transition-colors ${
               looping
                 ? "border-sage text-sage"
                 : "border-cream-200 text-ink-muted"
             }`}
           >
-            <Repeat size={18} strokeWidth={1.75} />
-            {looping ? "Opakuje sa" : "Raz"}
+            <Repeat size={16} strokeWidth={1.75} />
           </button>
         </div>
 
@@ -197,6 +215,18 @@ export default function VideoPage() {
             {video.description}
           </p>
         )}
+
+        {/* Bene motivational quote */}
+        {(() => {
+          const idx = Math.abs((video.id.length * 7 + video.title.length) % BENE_QUOTES.length);
+          const { Mascot, text } = BENE_QUOTES[idx];
+          return (
+            <div className="flex items-center gap-3 bg-cream-100 rounded-card p-3 mt-2">
+              <Mascot size={50} />
+              <p className="text-sm text-ink-muted italic flex-1">{text}</p>
+            </div>
+          );
+        })()}
       </div>
     </div>
   );
