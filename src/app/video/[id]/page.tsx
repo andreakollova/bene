@@ -69,6 +69,7 @@ export default function VideoPage() {
 
   const isPortrait = video.orientation === "portrait";
   const isTrainerReel = video.type === "trainer_exercise";
+  const isYouTube = video.videoUrl.includes("youtube.com");
 
   // Get reps info
   const settings = exercise
@@ -169,27 +170,40 @@ export default function VideoPage() {
       </div>
 
       {/* Video player */}
-      <div
-        className={`overflow-hidden bg-black ${
-          isPortrait ? "mx-6 rounded-card" : "w-full"
-        }`}
-        style={isPortrait ? { maxHeight: "60vh" } : undefined}
-      >
-        <video
-          ref={videoRef}
-          src={video.videoUrl}
-          controls
-          autoPlay
-          playsInline
-          loop={looping}
-          className={
-            isPortrait
-              ? "w-full h-full object-contain"
-              : "w-full"
-          }
+      {isYouTube ? (
+        <div className="w-full aspect-video rounded-card overflow-hidden mx-0">
+          <iframe
+            src={`${video.videoUrl}?autoplay=1&rel=0`}
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            className="w-full h-full"
+            style={{ border: "none" }}
+          />
+        </div>
+      ) : (
+        <div
+          className={`overflow-hidden bg-black ${
+            isPortrait ? "mx-6 rounded-card" : "w-full"
+          }`}
           style={isPortrait ? { maxHeight: "60vh" } : undefined}
-        />
-      </div>
+        >
+          <video
+            ref={videoRef}
+            src={video.videoUrl}
+            controls
+            autoPlay
+            playsInline
+            loop={looping}
+            muted={muted}
+            className={
+              isPortrait
+                ? "w-full h-full object-contain"
+                : "w-full"
+            }
+            style={isPortrait ? { maxHeight: "60vh" } : undefined}
+          />
+        </div>
+      )}
 
       {/* Controls */}
       <div className="px-6 py-4 space-y-4">
