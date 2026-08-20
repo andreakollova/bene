@@ -19,9 +19,15 @@ type Phase = "breathe" | "foam_roller" | "video" | "exercise" | "rest" | "pain_c
 
 const FOAM_ROLLER_SECONDS = 300;
 const BREATHE_MESSAGES = [
-  "Dnes nemusíš vidieť výsledok. Stačí vedieť, že každých pár minút, ktoré venuješ svojmu telu, je malý dar pre tvoje budúce ja.",
-  "Nemusíš dnes urobiť veľa. Stačí urobiť niečo malé, za čo ti tvoje budúce ja raz potichu poďakuje.",
-  "Dnes svojmu telu venuj pár minút pozornosti. Nosí ťa všade, kam chceš ísť — zaslúži si, aby si sa oň pekne starala.",
+  "Každých pár minút pre tvoje telo je dar pre tvoje budúce ja.",
+  "Stačí urobiť niečo malé, za čo ti tvoje budúce ja poďakuje.",
+  "Tvoje telo ťa nosí všade — zaslúži si pozornosť.",
+  "Dýchaj. Si presne tam, kde máš byť.",
+  "Toto nie je povinnosť. Toto je starostlivosť.",
+  "Pomaly. Nie je kam sa ponáhľať.",
+  "Tvoje telo počúva. Daj mu čas.",
+  "Každý nádych je nový začiatok.",
+  "Si tu pre seba. To je dosť.",
 ];
 
 function formatTime(seconds: number): string {
@@ -42,7 +48,7 @@ export default function SessionPage() {
   const [exerciseIndex, setExerciseIndex] = useState(0);
   const [currentSet, setCurrentSet] = useState(1);
   const [phase, setPhase] = useState<Phase>("breathe");
-  const [breathCount, setBreatheCount] = useState(5);
+  const [breatheReady, setBreatheReady] = useState(false);
   const [restSeconds, setRestSeconds] = useState(30);
 
   const [foamSeconds, setFoamSeconds] = useState(FOAM_ROLLER_SECONDS);
@@ -152,9 +158,17 @@ export default function SessionPage() {
     );
   }
 
+  // Auto-show continue after 6s
+  useEffect(() => {
+    if (phase !== "breathe") return;
+    const t = setTimeout(() => setBreatheReady(true), 6000);
+    return () => clearTimeout(t);
+  }, [phase]);
+
   // --- BREATHE PHASE ---
   if (phase === "breathe") {
-    const msg = BREATHE_MESSAGES[Math.floor(Math.random() * BREATHE_MESSAGES.length)];
+    const msgIdx = Math.abs(Date.now() % BREATHE_MESSAGES.length);
+    const msg = BREATHE_MESSAGES[msgIdx];
     return (
       <div className="min-h-screen flex flex-col items-center justify-center px-8" style={{ backgroundColor: "#7C9070" }}>
         <style>{`
@@ -164,52 +178,48 @@ export default function SessionPage() {
           }
         `}</style>
 
-        <div className="flex flex-col items-center gap-10 max-w-xs text-center">
-          {/* Pulsing circle */}
-          <div className="relative flex items-center justify-center" style={{ width: 180, height: 180 }}>
-            {/* Outer pulse ring */}
+        <div className="flex flex-col items-center gap-12 max-w-xs text-center">
+          {/* Pulsing circles */}
+          <div className="relative flex items-center justify-center" style={{ width: 200, height: 200 }}>
             <div
               className="absolute rounded-full"
               style={{
-                width: 180, height: 180,
-                border: "1px solid rgba(255,255,255,0.3)",
+                width: 200, height: 200,
+                border: "1px solid rgba(255,255,255,0.2)",
                 animation: "benePulse 6s ease-in-out infinite",
               }}
             />
-            {/* Inner pulse ring */}
             <div
               className="absolute rounded-full"
               style={{
-                width: 140, height: 140,
-                backgroundColor: "rgba(255,255,255,0.1)",
-                animation: "benePulse 6s ease-in-out infinite 0.5s",
+                width: 150, height: 150,
+                backgroundColor: "rgba(255,255,255,0.08)",
+                animation: "benePulse 6s ease-in-out infinite 1s",
               }}
             />
-            {/* Center dot */}
             <div
-              className="w-20 h-20 rounded-full flex items-center justify-center"
+              className="w-24 h-24 rounded-full"
               style={{
-                backgroundColor: "rgba(255,255,255,0.2)",
+                backgroundColor: "rgba(255,255,255,0.15)",
                 animation: "breathing 6s ease-in-out infinite",
               }}
             />
           </div>
 
-          <p className="text-white/60 text-[10px] uppercase tracking-widest">
-            Priprav sa · dýchaj
-          </p>
-
-          <p className="font-serif text-lg text-white leading-relaxed">
+          <p className="text-white/40 text-[13px] leading-relaxed max-w-[260px]">
             {msg}
           </p>
 
-          <button
-            onClick={() => setPhase("foam_roller")}
-            className="w-full py-3 rounded-full font-semibold text-sm transition-opacity hover:opacity-80"
-            style={{ backgroundColor: "rgba(255,255,255,0.2)", color: "white" }}
-          >
-            Pokračovať
-          </button>
+          {/* Button appears after 6s */}
+          <div className={`transition-opacity duration-1000 ${breatheReady ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+            <button
+              onClick={() => setPhase("foam_roller")}
+              className="px-8 py-3 rounded-full font-medium text-sm"
+              style={{ backgroundColor: "rgba(255,255,255,0.2)", color: "white" }}
+            >
+              Pokračovať
+            </button>
+          </div>
         </div>
       </div>
     );
