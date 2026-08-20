@@ -60,15 +60,18 @@ export default function BeneIdle({ size = 160, className = "" }: BeneIdleProps) 
         fill="none"
       />
 
-      {/* Left eye white */}
-      <circle cx="86" cy="100" r="14" fill="#FAF9F5" />
-      {/* Right eye white */}
-      <circle cx="114" cy="100" r="14" fill="#FAF9F5" />
+      {/* Eyes group with blink */}
+      <g style={{ animation: "beneBlink 4s ease-in-out infinite", transformOrigin: "100px 100px" }}>
+        {/* Left eye white */}
+        <circle cx="86" cy="100" r="14" fill="#FAF9F5" />
+        {/* Right eye white */}
+        <circle cx="114" cy="100" r="14" fill="#FAF9F5" />
 
-      {/* Left pupil */}
-      <circle cx="88" cy="103" r="9" fill="#3D3929" />
-      {/* Right pupil */}
-      <circle cx="116" cy="103" r="9" fill="#3D3929" />
+        {/* Left pupil */}
+        <circle cx="88" cy="103" r="9" fill="#3D3929" />
+        {/* Right pupil */}
+        <circle cx="116" cy="103" r="9" fill="#3D3929" />
+      </g>
 
       {/* Left eye highlight */}
       <circle cx="92" cy="98" r="3.5" fill="#FAF9F5" />

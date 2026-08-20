@@ -2,7 +2,7 @@
 
 import { Flame, Calendar, Award, Sprout, Dumbbell, Trophy } from "lucide-react";
 import { BeneCelebrate, BeneOk } from "@/components/mascot";
-import { Card, ProgressRing } from "@/components/ui";
+import { Card, ProgressRing, ProgressBar } from "@/components/ui";
 import { useStore } from "@/store/useStore";
 import { useHydrated } from "@/hooks/useHydrated";
 
@@ -19,6 +19,7 @@ export default function PokrokPage() {
   const completedSessions = useStore((s) => s.completedSessions);
   const painLogs = useStore((s) => s.painLogs);
   const plan = useStore((s) => s.currentPlan);
+  const currentWeekIndex = useStore((s) => s.currentWeekIndex);
 
   if (!hydrated) return null;
 
@@ -46,41 +47,39 @@ export default function PokrokPage() {
     <div className="w-full px-6 py-8 space-y-8">
       <h1 className="font-serif text-2xl font-semibold text-black">Pokrok</h1>
 
-      {/* Streak */}
-      <Card className="p-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="font-serif text-[64px] font-semibold text-black leading-none">
-              {streak}
-            </p>
-            <p className="text-[10px] text-gray-400 mt-2 uppercase tracking-widest">
-              {streak === 1 ? "deň v sérii" : "dní v sérii"}
-            </p>
-          </div>
-          {streak >= 5 ? <BeneCelebrate size={80} /> : <BeneOk size={80} />}
+      {/* Streak + Bene */}
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="font-serif text-5xl font-semibold text-black leading-none">
+            {streak}
+          </p>
+          <p className="text-[10px] text-gray-400 mt-1 uppercase tracking-widest">
+            {streak === 1 ? "deň v sérii" : "dní v sérii"}
+          </p>
         </div>
-      </Card>
+        {streak >= 5 ? <BeneCelebrate size={72} /> : <BeneOk size={72} />}
+      </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-3">
-        <Card className="p-5 flex flex-col items-center gap-2">
-          <Flame className="text-black" size={20} strokeWidth={1.5} />
-          <span className="font-serif text-xl font-medium text-black">{total}</span>
-          <span className="text-[10px] text-gray-400 uppercase tracking-widest">cvičení</span>
+      <div className="grid grid-cols-3 gap-2">
+        <Card className="p-3 flex flex-col items-center gap-1">
+          <Flame className="text-black" size={18} strokeWidth={1.5} />
+          <span className="font-serif text-lg font-semibold text-black">{total}</span>
+          <span className="text-[9px] text-gray-400 uppercase tracking-widest">cvičení</span>
         </Card>
-        <Card className="p-5 flex flex-col items-center gap-2">
-          <ProgressRing progress={planProgress} size={40} strokeWidth={3} />
-          <span className="font-serif text-xl font-medium text-black">
+        <Card className="p-3 flex flex-col items-center gap-1">
+          <span className="font-serif text-lg font-semibold text-black">
             {Math.round(planProgress * 100)}%
           </span>
-          <span className="text-[10px] text-gray-400 uppercase tracking-widest">plán</span>
+          <ProgressBar progress={planProgress} />
+          <span className="text-[9px] text-gray-400 uppercase tracking-widest">plán</span>
         </Card>
-        <Card className="p-5 flex flex-col items-center gap-2">
-          <Calendar className="text-black" size={20} strokeWidth={1.5} />
-          <span className="font-serif text-xl font-medium text-black">
-            {plan?.weeks[0]?.weekNumber || 0}
+        <Card className="p-3 flex flex-col items-center gap-1">
+          <Calendar className="text-black" size={18} strokeWidth={1.5} />
+          <span className="font-serif text-lg font-semibold text-black">
+            {currentWeekIndex + 1}
           </span>
-          <span className="text-[10px] text-gray-400 uppercase tracking-widest">týždeň</span>
+          <span className="text-[9px] text-gray-400 uppercase tracking-widest">týždeň</span>
         </Card>
       </div>
 

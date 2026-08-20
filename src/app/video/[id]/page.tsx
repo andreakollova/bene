@@ -14,14 +14,13 @@ import { Button } from "@/components/ui";
 import { BeneIdle, BeneOk, BeneCelebrate, BeneStretch } from "@/components/mascot";
 
 const BENE_QUOTES = [
-  { Mascot: BeneOk, text: "Super forma, len tak ďalej!" },
-  { Mascot: BeneCelebrate, text: "Každé opakovanie sa počíta." },
-  { Mascot: BeneIdle, text: "Dýchaj, sústreď sa na pohyb." },
-  { Mascot: BeneStretch, text: "Tvoje telo ti poďakuje." },
-  { Mascot: BeneOk, text: "Konzistentnosť je kľúč." },
-  { Mascot: BeneCelebrate, text: "Si silnejšia ako včera!" },
-  { Mascot: BeneIdle, text: "Pomaly a kontrolovane." },
-  { Mascot: BeneStretch, text: "Rehabilitácia je tréning techniky." },
+  { Mascot: BeneOk, text: "Nerobím to pre dnešok, ale pre seba o 10–20 rokov." },
+  { Mascot: BeneCelebrate, text: "Teraz opravujem malé veci, kým sú malé." },
+  { Mascot: BeneIdle, text: "Aj obyčajné dýchanie je tréning." },
+  { Mascot: BeneStretch, text: "Chcem byť silná, pohyblivá a športovať čo najdlhšie." },
+  { Mascot: BeneOk, text: "To, že je cvik jednoduchý, neznamená, že je zbytočný." },
+  { Mascot: BeneCelebrate, text: "O pár mesiacov chcem byť rada, že som začala teraz." },
+  { Mascot: BeneIdle, text: "Toto je investícia do môjho tela." },
 ];
 
 export default function VideoPage() {

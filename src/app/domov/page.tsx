@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState, useCallback } from "react";
 import Link from "next/link";
 import {
   Play,
@@ -59,6 +59,33 @@ export default function DomovPage() {
 
   const today = new Date().getDay();
   const adjustedDay = today === 0 ? 6 : today - 1;
+
+  // Manual day toggles (for swimming, other training)
+  const weekKey = `bene_manual_week_${currentWeekIndex}`;
+  const [manualDays, setManualDays] = useState<boolean[]>(() => {
+    if (typeof window === "undefined") return Array(7).fill(false);
+    try { return JSON.parse(localStorage.getItem(weekKey) || "[]") || Array(7).fill(false); }
+    catch { return Array(7).fill(false); }
+  });
+
+  const toggleManualDay = useCallback((day: number) => {
+    setManualDays((prev) => {
+      const next = [...prev];
+      while (next.length < 7) next.push(false);
+      next[day] = !next[day];
+      localStorage.setItem(weekKey, JSON.stringify(next));
+      return next;
+    });
+  }, [weekKey]);
+
+  const mergedWeekProgress = useMemo(() => {
+    const merged = [...weekProgress];
+    while (merged.length < 7) merged.push(false);
+    for (let i = 0; i < 7; i++) {
+      if (manualDays[i]) merged[i] = true;
+    }
+    return merged;
+  }, [weekProgress, manualDays]);
 
   const trainerSets = useMemo(() => {
     const iamReels = SEED_TRAINER_REELS.filter((r) => r.id.startsWith("reel_iam"));
@@ -240,7 +267,7 @@ export default function DomovPage() {
         <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-4">
           TENTO TÝŽDEŇ
         </p>
-        <StreakDots completedDays={weekProgress} currentDay={adjustedDay} />
+        <StreakDots completedDays={mergedWeekProgress} currentDay={adjustedDay} onToggle={toggleManualDay} />
       </div>
 
       {/* ── Citát ── */}

@@ -1,8 +1,11 @@
+"use client";
+
 import React from "react";
 
 interface StreakDotsProps {
   completedDays: boolean[];
   currentDay?: number;
+  onToggle?: (day: number) => void;
   className?: string;
 }
 
@@ -11,6 +14,7 @@ const LABELS = ["Po", "Ut", "St", "Št", "Pi", "So", "Ne"];
 export function StreakDots({
   completedDays,
   currentDay,
+  onToggle,
   className = "",
 }: StreakDotsProps) {
   return (
@@ -21,13 +25,14 @@ export function StreakDots({
 
         return (
           <div key={i} className="flex flex-col items-center gap-1.5">
-            <div
+            <button
+              onClick={() => onToggle?.(i)}
               className={`w-full aspect-square rounded-full flex items-center justify-center transition-all duration-200 ${
                 completed
                   ? "bg-black"
                   : isCurrent
                   ? "border-2 border-black bg-white"
-                  : "border border-gray-200 bg-white"
+                  : "border border-gray-200 bg-white active:bg-gray-100"
               }`}
             >
               {completed && (
@@ -41,10 +46,10 @@ export function StreakDots({
                   />
                 </svg>
               )}
-            </div>
+            </button>
             <span
               className={`text-[10px] font-sans uppercase tracking-widest ${
-                isCurrent ? "text-black font-semibold" : "text-gray-400"
+                completed ? "text-black font-semibold" : isCurrent ? "text-black font-semibold" : "text-gray-400"
               }`}
             >
               {label}
