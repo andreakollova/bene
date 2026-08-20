@@ -156,42 +156,59 @@ export default function SessionPage() {
   if (phase === "breathe") {
     const msg = BREATHE_MESSAGES[Math.floor(Math.random() * BREATHE_MESSAGES.length)];
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-white px-8">
-        <div className="flex flex-col items-center gap-8 max-w-xs text-center">
+      <div className="min-h-screen flex flex-col items-center justify-center px-8" style={{ backgroundColor: "#7C9070" }}>
+        <style>{`
+          @keyframes benePulse {
+            0%, 100% { transform: scale(0.6); opacity: 0.3; }
+            50% { transform: scale(1); opacity: 0.15; }
+          }
+        `}</style>
+
+        <div className="flex flex-col items-center gap-10 max-w-xs text-center">
           {/* Pulsing circle */}
-          <div
-            className="w-28 h-28 rounded-full border-2 border-black flex items-center justify-center"
-            style={{ animation: "breathing 4s ease-in-out infinite" }}
-          >
-            <span className="font-serif text-3xl font-semibold text-black">{breathCount}</span>
+          <div className="relative flex items-center justify-center" style={{ width: 180, height: 180 }}>
+            {/* Outer pulse ring */}
+            <div
+              className="absolute rounded-full"
+              style={{
+                width: 180, height: 180,
+                border: "1px solid rgba(255,255,255,0.3)",
+                animation: "benePulse 6s ease-in-out infinite",
+              }}
+            />
+            {/* Inner pulse ring */}
+            <div
+              className="absolute rounded-full"
+              style={{
+                width: 140, height: 140,
+                backgroundColor: "rgba(255,255,255,0.1)",
+                animation: "benePulse 6s ease-in-out infinite 0.5s",
+              }}
+            />
+            {/* Center dot */}
+            <div
+              className="w-20 h-20 rounded-full flex items-center justify-center"
+              style={{
+                backgroundColor: "rgba(255,255,255,0.2)",
+                animation: "breathing 6s ease-in-out infinite",
+              }}
+            />
           </div>
 
-          <p className="text-[10px] uppercase tracking-widest text-gray-400">
-            Priprav sa · {breathCount} {breathCount === 1 ? "nádych" : breathCount < 5 ? "nádychy" : "nádychov"}
+          <p className="text-white/60 text-[10px] uppercase tracking-widest">
+            Priprav sa · dýchaj
           </p>
 
-          <p className="font-serif text-lg text-black leading-relaxed italic">
+          <p className="font-serif text-lg text-white leading-relaxed">
             {msg}
           </p>
 
           <button
-            onClick={() => {
-              if (breathCount > 1) {
-                setBreatheCount((c) => c - 1);
-              } else {
-                setPhase("foam_roller");
-              }
-            }}
-            className="w-full py-3 rounded-full bg-black text-white font-semibold text-sm transition-opacity hover:opacity-80"
-          >
-            {breathCount > 1 ? "Nádych" : "Začíname"}
-          </button>
-
-          <button
             onClick={() => setPhase("foam_roller")}
-            className="text-gray-400 text-sm hover:text-black transition-colors"
+            className="w-full py-3 rounded-full font-semibold text-sm transition-opacity hover:opacity-80"
+            style={{ backgroundColor: "rgba(255,255,255,0.2)", color: "white" }}
           >
-            Preskočiť
+            Pokračovať
           </button>
         </div>
       </div>
