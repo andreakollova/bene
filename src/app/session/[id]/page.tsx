@@ -15,9 +15,14 @@ import { useStore } from "@/store/useStore";
 import { useHydrated } from "@/hooks/useHydrated";
 import { SEED_VIDEO_SESSIONS } from "@/data/seedData";
 
-type Phase = "foam_roller" | "video" | "exercise" | "rest" | "pain_check";
+type Phase = "breathe" | "foam_roller" | "video" | "exercise" | "rest" | "pain_check";
 
 const FOAM_ROLLER_SECONDS = 300;
+const BREATHE_MESSAGES = [
+  "Dnes nemusíš vidieť výsledok. Stačí vedieť, že každých pár minút, ktoré venuješ svojmu telu, je malý dar pre tvoje budúce ja.",
+  "Nemusíš dnes urobiť veľa. Stačí urobiť niečo malé, za čo ti tvoje budúce ja raz potichu poďakuje.",
+  "Dnes svojmu telu venuj pár minút pozornosti. Nosí ťa všade, kam chceš ísť — zaslúži si, aby si sa oň pekne starala.",
+];
 
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60);
@@ -36,7 +41,8 @@ export default function SessionPage() {
 
   const [exerciseIndex, setExerciseIndex] = useState(0);
   const [currentSet, setCurrentSet] = useState(1);
-  const [phase, setPhase] = useState<Phase>("foam_roller");
+  const [phase, setPhase] = useState<Phase>("breathe");
+  const [breathCount, setBreatheCount] = useState(5);
   const [restSeconds, setRestSeconds] = useState(30);
 
   const [foamSeconds, setFoamSeconds] = useState(FOAM_ROLLER_SECONDS);
@@ -142,6 +148,52 @@ export default function SessionPage() {
         <Button onClick={() => router.back()} variant="ghost">
           Späť
         </Button>
+      </div>
+    );
+  }
+
+  // --- BREATHE PHASE ---
+  if (phase === "breathe") {
+    const msg = BREATHE_MESSAGES[Math.floor(Math.random() * BREATHE_MESSAGES.length)];
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white px-8">
+        <div className="flex flex-col items-center gap-8 max-w-xs text-center">
+          {/* Pulsing circle */}
+          <div
+            className="w-28 h-28 rounded-full border-2 border-black flex items-center justify-center"
+            style={{ animation: "breathing 4s ease-in-out infinite" }}
+          >
+            <span className="font-serif text-3xl font-semibold text-black">{breathCount}</span>
+          </div>
+
+          <p className="text-[10px] uppercase tracking-widest text-gray-400">
+            Priprav sa · {breathCount} {breathCount === 1 ? "nádych" : breathCount < 5 ? "nádychy" : "nádychov"}
+          </p>
+
+          <p className="font-serif text-lg text-black leading-relaxed italic">
+            {msg}
+          </p>
+
+          <button
+            onClick={() => {
+              if (breathCount > 1) {
+                setBreatheCount((c) => c - 1);
+              } else {
+                setPhase("foam_roller");
+              }
+            }}
+            className="w-full py-3 rounded-full bg-black text-white font-semibold text-sm transition-opacity hover:opacity-80"
+          >
+            {breathCount > 1 ? "Nádych" : "Začíname"}
+          </button>
+
+          <button
+            onClick={() => setPhase("foam_roller")}
+            className="text-gray-400 text-sm hover:text-black transition-colors"
+          >
+            Preskočiť
+          </button>
+        </div>
       </div>
     );
   }
