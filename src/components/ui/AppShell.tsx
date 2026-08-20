@@ -18,15 +18,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         {!hideNav && (
           <div className="sticky top-0 z-40 bg-white border-b border-gray-200">
             <Link href="/domov" className="flex justify-center py-3">
-              <img src="/benelogo.png" alt="Bene" className="h-8" />
+              <img src="/benelogo.png?v=3" alt="Bene" className="h-7" />
             </Link>
           </div>
         )}
-        <main className={`${hideNav ? "min-h-screen" : "pb-20"}`}>
+        <main className={`${hideNav ? "min-h-screen" : "pb-16"}`}>
           {children}
         </main>
-        {!hideNav && <MobileNav />}
       </div>
+      {/* Nav outside phone frame so fixed works properly */}
+      {!hideNav && <MobileNav />}
     </div>
   );
 }
