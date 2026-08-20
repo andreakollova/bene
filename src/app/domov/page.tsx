@@ -246,21 +246,18 @@ export default function DomovPage() {
         )}
       </section>
 
-      {/* ── Séria + Týždeň ── */}
-      <div className="flex gap-3">
-        <Card className="flex-1 p-5 text-center">
+      {/* ── Séria ── */}
+      <Card className="p-5 flex items-center justify-between">
+        <div>
           <p className="font-serif text-3xl font-semibold text-black">{streak}</p>
           <p className="text-[10px] text-gray-400 mt-1 uppercase tracking-widest">
             {streak === 1 ? "deň v sérii" : "dní v sérii"}
           </p>
-        </Card>
-        <Card className="flex-1 p-5 text-center">
-          <p className="font-serif text-3xl font-semibold text-black">
-            {currentWeekIndex + 1}/{plan?.totalWeeks || 4}
-          </p>
-          <p className="text-[10px] text-gray-400 mt-1 uppercase tracking-widest">týždeň</p>
-        </Card>
-      </div>
+        </div>
+        <p className="text-[10px] text-gray-400 uppercase tracking-widest">
+          {completedCount} / {totalDays} sessions
+        </p>
+      </Card>
 
       {/* ── Tento týždeň ── */}
       <div>

@@ -10,24 +10,34 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const hideNav = hideNavPaths.some((p) => pathname.startsWith(p));
 
-  return (
-    <div className="flex justify-center min-h-screen bg-white">
-      {/* Phone frame */}
-      <div className="relative w-full max-w-[430px] min-h-screen border-x border-gray-200 bg-white">
-        {/* Top logo bar */}
-        {!hideNav && (
-          <div className="sticky top-0 z-40 bg-white border-b border-gray-200">
-            <Link href="/domov" className="flex justify-center py-3">
-              <img src="/benelogo.png?v=3" alt="Bene" className="h-7" />
-            </Link>
-          </div>
-        )}
-        <main className={`${hideNav ? "min-h-screen" : "pb-16"}`}>
+  if (hideNav) {
+    return (
+      <div className="flex justify-center min-h-screen bg-white">
+        <div className="w-full max-w-[430px] min-h-screen bg-white">
           {children}
-        </main>
+        </div>
       </div>
-      {/* Nav outside phone frame so fixed works properly */}
-      {!hideNav && <MobileNav />}
+    );
+  }
+
+  return (
+    <div className="flex justify-center bg-white">
+      <div className="w-full max-w-[430px] flex flex-col h-dvh bg-white border-x border-gray-200">
+        {/* Logo */}
+        <div className="shrink-0 bg-white border-b border-gray-200">
+          <Link href="/domov" className="flex justify-center py-3">
+            <img src="/benelogo.png?v=3" alt="Bene" className="h-7" />
+          </Link>
+        </div>
+
+        {/* Scrollable content */}
+        <div className="flex-1 overflow-y-auto">
+          {children}
+        </div>
+
+        {/* Nav - always at bottom, never moves */}
+        <MobileNav />
+      </div>
     </div>
   );
 }
