@@ -313,16 +313,22 @@ export default function DomovPage() {
         <h2 className="font-serif text-xl font-medium text-black mb-4">
           Podľa vybavenia
         </h2>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-3">
           {equipmentCategories.map((cat) => (
             <Link
               key={cat.label}
               href={`/cviky/${encodeURIComponent(cat.label)}`}
-              className="bg-white border border-gray-200 rounded-[20px] overflow-hidden active:bg-gray-100 transition-colors"
+              className="flex items-center gap-3 bg-white border border-gray-200 rounded-[20px] p-3 active:bg-gray-100 transition-colors"
             >
-              <div className="grid grid-cols-2 gap-px h-24">
+              <div className="shrink-0">
+                <p className="font-medium text-black text-sm">{cat.label}</p>
+                <p className="text-[10px] text-gray-400 mt-0.5 uppercase tracking-widest">
+                  {cat.reels.length} {cat.reels.length === 1 ? "cvik" : cat.reels.length < 5 ? "cviky" : "cvikov"}
+                </p>
+              </div>
+              <div className="flex-1 flex gap-1.5 justify-end">
                 {cat.reels.slice(0, 4).map((r, i) => (
-                  <div key={i} className="overflow-hidden">
+                  <div key={i} className="w-12 h-12 rounded-[10px] overflow-hidden shrink-0">
                     {r.coverUrl ? (
                       <img src={r.coverUrl} alt="" className="w-full h-full object-cover" />
                     ) : (
@@ -330,12 +336,6 @@ export default function DomovPage() {
                     )}
                   </div>
                 ))}
-              </div>
-              <div className="p-3">
-                <p className="font-medium text-black text-sm">{cat.label}</p>
-                <p className="text-xs text-gray-400 mt-0.5">
-                  {cat.reels.length} {cat.reels.length === 1 ? "cvik" : cat.reels.length < 5 ? "cviky" : "cvikov"}
-                </p>
               </div>
             </Link>
           ))}
