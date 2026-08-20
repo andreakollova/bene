@@ -43,17 +43,13 @@ export default function SessionPage() {
   const [foamSeconds, setFoamSeconds] = useState(FOAM_ROLLER_SECONDS);
   const foamIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  if (!hydrated) return null;
-
-  const dayPlan =
-    plan?.weeks.flatMap((w) => w.days).find((d) => d.id === id) ||
-    customWorkouts.find((w) => w.id === id);
-
+  // Derived state (no hooks after this)
+  const dayPlan = plan?.weeks.flatMap((w) => w.days).find((d) => d.id === id)
+    || customWorkouts.find((w) => w.id === id);
   const exercises = dayPlan?.exercises || [];
-  const ex = exercises[exerciseIndex];
+  const ex = exercises[exerciseIndex] || null;
   const total = exercises.length;
   const progress = total > 0 ? (exerciseIndex + 1) / total : 0;
-
   const videoSession = dayPlan?.videoSessionId
     ? SEED_VIDEO_SESSIONS.find((v) => v.id === dayPlan.videoSessionId) ?? null
     : null;
@@ -143,7 +139,7 @@ export default function SessionPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
-  if (!dayPlan) {
+  if (!hydrated || !dayPlan) {
     return (
       <div className="flex flex-col items-center justify-center h-screen gap-4 bg-cream-50">
         <p className="font-medium text-ink-muted">Cvičenie nenájdené</p>

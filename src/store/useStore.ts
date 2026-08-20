@@ -197,7 +197,10 @@ export const useStore = create<AppState>()(
       currentExerciseIndex: 0,
       currentSet: 1,
 
-      progressPhotos: [],
+      progressPhotos: [
+        { id: 'default_1', uri: '/progress_1.png', date: '2025-09-03', note: '' },
+        { id: 'default_2', uri: '/progress_2.png', date: '2026-03-16', note: '' },
+      ],
 
       customWorkouts: [],
 
