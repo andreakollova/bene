@@ -6,6 +6,7 @@ import {
   FileText,
   ChevronRight,
   Repeat,
+  Settings2,
 } from "lucide-react";
 import { BeneIdle } from "@/components/mascot";
 import { Card } from "@/components/ui";
@@ -104,6 +105,17 @@ export default function ProfilPage() {
         <p className="text-[11px] font-semibold tracking-[1.2px] uppercase text-ink-faint mb-3">
           NASTAVENIA
         </p>
+        <Link href="/manage">
+          <Card className="p-4 mb-2 active:bg-cream-200 transition-colors">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Settings2 className="text-ink-muted" size={20} strokeWidth={1.75} />
+                <span className="font-medium text-ink">Spravovať tréningy</span>
+              </div>
+              <ChevronRight className="text-ink-faint" size={18} />
+            </div>
+          </Card>
+        </Link>
         <Card className="p-4 mb-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">

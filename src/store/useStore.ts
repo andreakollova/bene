@@ -70,6 +70,12 @@ interface AppState {
   // Custom video titles
   customVideoTitles: Record<string, string>;
 
+  // Hidden exercises (removed from plan)
+  hiddenExercises: string[];
+
+  // Weeks manually marked as done
+  markedWeeks: number[];
+
   // Settings
   darkMode: boolean;
 
@@ -109,6 +115,17 @@ interface AppState {
 
   // Video titles
   setVideoTitle: (videoId: string, title: string) => void;
+
+  // Hidden exercises
+  hideExercise: (exerciseId: string) => void;
+  unhideExercise: (exerciseId: string) => void;
+
+  // Marked weeks
+  markWeekDone: (weekNumber: number) => void;
+  unmarkWeekDone: (weekNumber: number) => void;
+
+  // Shuffle exercises
+  shuffleExercises: () => void;
 
   // Rep settings
   updateRepSettings: (
@@ -187,6 +204,10 @@ export const useStore = create<AppState>()(
       repSettings: {},
 
       customVideoTitles: {},
+
+      hiddenExercises: [],
+
+      markedWeeks: [],
 
       darkMode: false,
 
@@ -331,6 +352,59 @@ export const useStore = create<AppState>()(
         })),
 
       // -----------------------------------------------------------------------
+      // Hidden exercises
+      // -----------------------------------------------------------------------
+      hideExercise: (exerciseId) =>
+        set((state) => ({
+          hiddenExercises: state.hiddenExercises.includes(exerciseId)
+            ? state.hiddenExercises
+            : [...state.hiddenExercises, exerciseId],
+        })),
+
+      unhideExercise: (exerciseId) =>
+        set((state) => ({
+          hiddenExercises: state.hiddenExercises.filter((id) => id !== exerciseId),
+        })),
+
+      // -----------------------------------------------------------------------
+      // Marked weeks
+      // -----------------------------------------------------------------------
+      markWeekDone: (weekNumber) =>
+        set((state) => ({
+          markedWeeks: state.markedWeeks.includes(weekNumber)
+            ? state.markedWeeks
+            : [...state.markedWeeks, weekNumber],
+        })),
+
+      unmarkWeekDone: (weekNumber) =>
+        set((state) => ({
+          markedWeeks: state.markedWeeks.filter((w) => w !== weekNumber),
+        })),
+
+      // -----------------------------------------------------------------------
+      // Shuffle exercises
+      // -----------------------------------------------------------------------
+      shuffleExercises: () =>
+        set((state) => {
+          if (!state.currentPlan) return {};
+          const shuffled = {
+            ...state.currentPlan,
+            weeks: state.currentPlan.weeks.map((week) => ({
+              ...week,
+              days: week.days.map((day) => {
+                const arr = [...day.exercises];
+                for (let i = arr.length - 1; i > 0; i--) {
+                  const j = Math.floor(Math.random() * (i + 1));
+                  [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
+                return { ...day, exercises: arr };
+              }),
+            })),
+          };
+          return { currentPlan: shuffled };
+        }),
+
+      // -----------------------------------------------------------------------
       // Rep settings
       // -----------------------------------------------------------------------
       updateRepSettings: (exerciseId, settings) =>
@@ -404,6 +478,8 @@ export const useStore = create<AppState>()(
         customWorkouts: state.customWorkouts,
         repSettings: state.repSettings,
         customVideoTitles: state.customVideoTitles,
+        hiddenExercises: state.hiddenExercises,
+        markedWeeks: state.markedWeeks,
         darkMode: state.darkMode,
       }),
     }

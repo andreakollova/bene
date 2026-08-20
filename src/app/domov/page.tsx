@@ -90,11 +90,6 @@ export default function DomovPage() {
 
   return (
     <div className="w-full px-6 py-6 space-y-6">
-      {/* ── Logo ── */}
-      <div className="text-center pt-2 pb-1">
-        <h1 className="font-serif text-2xl font-semibold text-ink tracking-tight">Bene</h1>
-      </div>
-
       {/* ── Pokračovať v programe ── */}
       <section>
         {todayDone ? (
