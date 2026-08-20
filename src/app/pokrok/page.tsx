@@ -44,16 +44,16 @@ export default function PokrokPage() {
 
   return (
     <div className="w-full px-6 py-8 space-y-8">
-      <h1 className="font-serif text-2xl font-semibold text-ink">Pokrok</h1>
+      <h1 className="font-serif text-2xl font-semibold text-black">Pokrok</h1>
 
       {/* Streak */}
-      <Card className="p-6">
+      <Card className="p-8">
         <div className="flex items-center justify-between">
           <div>
-            <p className="font-serif text-[56px] font-semibold text-ink leading-none">
+            <p className="font-serif text-[64px] font-semibold text-black leading-none">
               {streak}
             </p>
-            <p className="text-ink-muted mt-1">
+            <p className="text-[10px] text-gray-400 mt-2 uppercase tracking-widest">
               {streak === 1 ? "deň v sérii" : "dní v sérii"}
             </p>
           </div>
@@ -63,35 +63,35 @@ export default function PokrokPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-3">
-        <Card className="p-4 flex flex-col items-center gap-2">
-          <Flame className="text-sage" size={20} strokeWidth={1.75} />
-          <span className="font-serif text-xl font-medium text-ink">{total}</span>
-          <span className="text-sm text-ink-muted">cvičení</span>
+        <Card className="p-5 flex flex-col items-center gap-2">
+          <Flame className="text-black" size={20} strokeWidth={1.5} />
+          <span className="font-serif text-xl font-medium text-black">{total}</span>
+          <span className="text-[10px] text-gray-400 uppercase tracking-widest">cvičení</span>
         </Card>
-        <Card className="p-4 flex flex-col items-center gap-2">
+        <Card className="p-5 flex flex-col items-center gap-2">
           <ProgressRing progress={planProgress} size={40} strokeWidth={3} />
-          <span className="font-serif text-xl font-medium text-ink">
+          <span className="font-serif text-xl font-medium text-black">
             {Math.round(planProgress * 100)}%
           </span>
-          <span className="text-sm text-ink-muted">plán</span>
+          <span className="text-[10px] text-gray-400 uppercase tracking-widest">plán</span>
         </Card>
-        <Card className="p-4 flex flex-col items-center gap-2">
-          <Calendar className="text-sage" size={20} strokeWidth={1.75} />
-          <span className="font-serif text-xl font-medium text-ink">
+        <Card className="p-5 flex flex-col items-center gap-2">
+          <Calendar className="text-black" size={20} strokeWidth={1.5} />
+          <span className="font-serif text-xl font-medium text-black">
             {plan?.weeks[0]?.weekNumber || 0}
           </span>
-          <span className="text-sm text-ink-muted">týždeň</span>
+          <span className="text-[10px] text-gray-400 uppercase tracking-widest">týždeň</span>
         </Card>
       </div>
 
       {/* Calendar heat */}
       <div>
-        <p className="text-xs font-semibold text-ink-muted mb-3 tracking-wide uppercase">
+        <p className="text-[10px] font-semibold text-gray-400 mb-4 tracking-widest uppercase">
           Posledné 4 týždne
         </p>
         <div className="grid grid-cols-7 gap-1">
           {["Po", "Ut", "St", "Št", "Pi", "So", "Ne"].map((d) => (
-            <span key={d} className="text-center text-xs text-ink-faint pb-1">
+            <span key={d} className="text-center text-[10px] text-gray-300 pb-1 uppercase tracking-widest">
               {d}
             </span>
           ))}
@@ -100,8 +100,8 @@ export default function PokrokPage() {
               key={i}
               className={`aspect-square rounded-input flex items-center justify-center text-xs ${
                 d.completed
-                  ? "bg-sage-soft text-sage font-semibold"
-                  : "bg-cream-100 text-ink-faint"
+                  ? "bg-black text-white font-semibold"
+                  : "bg-gray-100 text-gray-300"
               }`}
             >
               {d.day}
@@ -113,14 +113,14 @@ export default function PokrokPage() {
       {/* Pain trend */}
       {recent.length > 0 && (
         <div>
-          <p className="text-xs font-semibold text-ink-muted mb-3 tracking-wide uppercase">
+          <p className="text-[10px] font-semibold text-gray-400 mb-4 tracking-widest uppercase">
             Pocity pri cvičení
           </p>
-          <div className="space-y-2">
+          <div className="space-y-3">
             {[
-              { label: "V pohode", count: painCounts.ok, color: "bg-sage" },
-              { label: "Ťahá to", count: painCounts.tight, color: "bg-amber" },
-              { label: "Bolí to", count: painCounts.pain, color: "bg-clay" },
+              { label: "V pohode", count: painCounts.ok, color: "bg-green-500" },
+              { label: "Ťahá to", count: painCounts.tight, color: "bg-amber-400" },
+              { label: "Bolí to", count: painCounts.pain, color: "bg-red-400" },
             ].map((item) => (
               <div key={item.label} className="flex items-center gap-3">
                 <div
@@ -129,7 +129,7 @@ export default function PokrokPage() {
                     width: `${Math.max(20, (item.count / Math.max(1, recent.length)) * 200)}px`,
                   }}
                 />
-                <span className="text-sm text-ink-muted">
+                <span className="text-sm text-gray-400">
                   {item.label} ({item.count})
                 </span>
               </div>
@@ -140,29 +140,29 @@ export default function PokrokPage() {
 
       {/* Milestones */}
       <div>
-        <p className="text-xs font-semibold text-ink-muted mb-3 tracking-wide uppercase">
+        <p className="text-[10px] font-semibold text-gray-400 mb-4 tracking-widest uppercase">
           Míľniky
         </p>
-        <div className="space-y-0 divide-y divide-cream-200">
+        <div className="space-y-0 divide-y divide-gray-200">
           {milestones.map((m) => {
             const earned =
               m.id === "thirty_days" ? streak >= m.threshold : total >= m.threshold;
             return (
-              <div key={m.id} className="flex items-center gap-3 py-3">
+              <div key={m.id} className="flex items-center gap-3 py-4">
                 <m.Icon
                   size={20}
-                  strokeWidth={1.75}
-                  className={earned ? "text-sage" : "text-ink-faint"}
+                  strokeWidth={1.5}
+                  className={earned ? "text-black" : "text-gray-300"}
                 />
                 <span
                   className={`flex-1 font-medium ${
-                    earned ? "text-ink" : "text-ink-faint"
+                    earned ? "text-black" : "text-gray-300"
                   }`}
                 >
                   {m.label}
                 </span>
                 {earned && (
-                  <Award className="text-sage" size={18} strokeWidth={1.75} />
+                  <Award className="text-black" size={18} strokeWidth={1.5} />
                 )}
               </div>
             );
