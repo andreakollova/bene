@@ -198,8 +198,8 @@ export const useStore = create<AppState>()(
       currentSet: 1,
 
       progressPhotos: [
-        { id: 'default_1', uri: '/progress_1.png', date: '2025-09-03', note: '' },
-        { id: 'default_2', uri: '/progress_2.png', date: '2026-03-16', note: '' },
+        { id: 'default_1', uri: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/progress/2025-09-03.png', date: '2025-09-03', note: '' },
+        { id: 'default_2', uri: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/progress/2026-03-16.png', date: '2026-03-16', note: '' },
       ],
 
       customWorkouts: [],
