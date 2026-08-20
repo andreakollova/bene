@@ -90,7 +90,7 @@ export default function BuilderPage() {
       })),
     };
     saveCustomWorkout(workout);
-    router.push(`/session/${workout.id}`);
+    setTimeout(() => router.push(`/session/${workout.id}`), 100);
   };
 
   const totalMin = Math.round(
