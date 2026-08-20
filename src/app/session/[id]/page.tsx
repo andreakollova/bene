@@ -233,7 +233,7 @@ export default function SessionPage() {
                 r={radius}
                 fill="none"
                 stroke="#E8E8E8"
-                strokeWidth="6"
+                strokeWidth="2"
               />
               <circle
                 cx="72"
@@ -241,7 +241,7 @@ export default function SessionPage() {
                 r={radius}
                 fill="none"
                 stroke="#111111"
-                strokeWidth="6"
+                strokeWidth="2"
                 strokeLinecap="round"
                 strokeDasharray={circumference}
                 strokeDashoffset={dashOffset}
