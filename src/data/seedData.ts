@@ -339,7 +339,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
 export const SEED_VIDEO_SESSIONS: VideoSession[] = [
   {
     id: 'vs_w1_strength1',
-    title: 'Posilňovanie 1 – Základy jadra',
+    title: 'Strengthening | Light | 1',
     description:
       'Prvý posilňovací tréning zameraný na aktiváciu hlbokého stabilizačného systému a správne zapojenie brušných svalov.',
     type: 'strengthening',
@@ -365,7 +365,7 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
   },
   {
     id: 'vs_w1_strength2',
-    title: 'Posilňovanie 2 – Mostík a variácie',
+    title: 'Strengthening | Light | 2',
     description:
       'Druhý tréning prvého týždňa sa zameriava na mostík, lastúrnik a abdukciu bedrového kĺbu.',
     type: 'strengthening',
@@ -378,7 +378,7 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
   },
   {
     id: 'vs_w1_routine2',
-    title: 'Večerná rutina 1 – Uvoľnenie',
+    title: 'Routines | 2',
     description:
       'Jemné strečingové cvičenia pred spánkom na uvoľnenie svalov driekovej oblasti a bedier.',
     type: 'routines',
@@ -391,7 +391,7 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
   },
   {
     id: 'vs_w2_strength3',
-    title: 'Posilňovanie 3 – Vtáčí pes a plank',
+    title: 'Strengthening | Light | 3',
     description:
       'Tretí posilňovací tréning pridáva vtáčí pes, predlakťový plank a koordinačné cvičenia jadra.',
     type: 'strengthening',
@@ -404,7 +404,7 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
   },
   {
     id: 'vs_w2_routine3',
-    title: 'Ranná rutina 2 – Mobilizácia',
+    title: 'Routines | 3',
     description:
       'Mobilizačné cvičenia pre driekovú oblasť a bedrové kĺby. Ideálne ráno pred prácou.',
     type: 'routines',
@@ -417,7 +417,7 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
   },
   {
     id: 'vs_w2_strength4',
-    title: 'Posilňovanie 4 – Supermann a hip hinge',
+    title: 'Strengthening | Light | 4',
     description:
       'Štvrtý tréning zavádzajúci supermanna, hip hinge a mŕtvy ťah s jednou nohou.',
     type: 'strengthening',
@@ -443,7 +443,7 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
   },
   {
     id: 'vs_w3_strength5',
-    title: 'Posilňovanie 5 – Stredná intenzita',
+    title: 'Strengthening | Intermediate | 1',
     description:
       'Prvý tréning strednej intenzity. Pridávame bočný plank, copenhagen plank a rotácie hrudníka.',
     type: 'strengthening',
@@ -456,7 +456,7 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
   },
   {
     id: 'vs_w3_routine5',
-    title: 'Ranná rutina 3 – Aktivácia',
+    title: 'Routines | 5',
     description:
       'Aktívna ranná rutina s väčším dôrazom na silu jadra a kontrolu pohybu bedier.',
     type: 'routines',
@@ -469,7 +469,7 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
   },
   {
     id: 'vs_w3_strength6',
-    title: 'Posilňovanie 6 – Funkčný pohyb',
+    title: 'Strengthening | Intermediate | 2',
     description:
       'Funkčné vzory pohybu: mŕtvy ťah, výpad s rotáciou a sed pri stene pre komplexnú stabilitu.',
     type: 'strengthening',
@@ -482,7 +482,7 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
   },
   {
     id: 'vs_w3_routine6',
-    title: 'Večerná rutina 3 – Regenerácia',
+    title: 'Routines | 6',
     description:
       'Regeneračná rutina so zameraním na pigeon stretch, detskú polohu a dychové cvičenia.',
     type: 'routines',
@@ -586,12 +586,12 @@ export const SEED_PLAN: Plan = {
     // ------------------------------------------------------------------ WEEK 1
     {
       weekNumber: 1,
-      title: 'Aktivácia jadra I',
+      title: 'Light | Week 1',
       days: [
         {
           id: 'w1d1',
           dayNumber: 1,
-          title: 'Pondelok – Mobilizácia & rotácia',
+          title: 'Monday – Mobilization & rotation',
           videoSessionId: 'vs_w1_strength1',
           exercises: [
             {
@@ -626,7 +626,7 @@ export const SEED_PLAN: Plan = {
         {
           id: 'w1d2',
           dayNumber: 2,
-          title: 'Streda – Flexory & rovnováha',
+          title: 'Wednesday – Flexors & balance',
           videoSessionId: 'vs_w1_routine1',
           exercises: [
             {
@@ -663,12 +663,12 @@ export const SEED_PLAN: Plan = {
     // ------------------------------------------------------------------ WEEK 2
     {
       weekNumber: 2,
-      title: 'Aktivácia jadra II',
+      title: 'Light | Week 1I',
       days: [
         {
           id: 'w1d3',
           dayNumber: 1,
-          title: 'Pondelok – Jadro & aktivácia',
+          title: 'Monday – Core activation',
           videoSessionId: 'vs_w1_strength2',
           exercises: [
             {
@@ -703,7 +703,7 @@ export const SEED_PLAN: Plan = {
         {
           id: 'w1d4',
           dayNumber: 2,
-          title: 'Streda – Uvoľnenie & strečing',
+          title: 'Wednesday – Release & stretch',
           videoSessionId: 'vs_w1_routine2',
           exercises: [
             {
@@ -741,12 +741,12 @@ export const SEED_PLAN: Plan = {
     // ------------------------------------------------------------------ WEEK 3
     {
       weekNumber: 3,
-      title: 'Budovanie sily I',
+      title: 'Light | Week 3',
       days: [
         {
           id: 'w2d1',
           dayNumber: 1,
-          title: 'Pondelok – Vzpriamovače & rotátory',
+          title: 'Monday – Extensors & rotators',
           videoSessionId: 'vs_w2_strength3',
           exercises: [
             {
@@ -781,7 +781,7 @@ export const SEED_PLAN: Plan = {
         {
           id: 'w2d2',
           dayNumber: 2,
-          title: 'Streda – Stabilizácia & tlak',
+          title: 'Wednesday – Stability & press',
           videoSessionId: 'vs_w2_routine3',
           exercises: [
             {
@@ -818,12 +818,12 @@ export const SEED_PLAN: Plan = {
     // ------------------------------------------------------------------ WEEK 4
     {
       weekNumber: 4,
-      title: 'Budovanie sily II',
+      title: 'Light | Week 3I',
       days: [
         {
           id: 'w2d3',
           dayNumber: 1,
-          title: 'Pondelok – Ťahy & pullover',
+          title: 'Monday – Pulls & pullover',
           videoSessionId: 'vs_w2_strength4',
           exercises: [
             {
@@ -858,7 +858,7 @@ export const SEED_PLAN: Plan = {
         {
           id: 'w2d4',
           dayNumber: 2,
-          title: 'Streda – Aktívna regenerácia',
+          title: 'Wednesday – Active recovery',
           videoSessionId: 'vs_w2_routine4',
           exercises: [
             {
@@ -896,12 +896,12 @@ export const SEED_PLAN: Plan = {
     // ------------------------------------------------------------------ WEEK 5
     {
       weekNumber: 5,
-      title: 'Stredná intenzita I',
+      title: 'Intermediate | Week 5',
       days: [
         {
           id: 'w3d1',
           dayNumber: 1,
-          title: 'Pondelok – Horný chrbát & lopatky',
+          title: 'Monday – Upper back & scapula',
           videoSessionId: 'vs_w3_strength5',
           exercises: [
             {
@@ -945,7 +945,7 @@ export const SEED_PLAN: Plan = {
         {
           id: 'w3d2',
           dayNumber: 2,
-          title: 'Streda – Anti-rotácia & stabilita',
+          title: 'Wednesday – Anti-rotation & stability',
           videoSessionId: 'vs_w3_routine5',
           exercises: [
             {
@@ -991,12 +991,12 @@ export const SEED_PLAN: Plan = {
     // ------------------------------------------------------------------ WEEK 6
     {
       weekNumber: 6,
-      title: 'Stredná intenzita II',
+      title: 'Intermediate | Week 5I',
       days: [
         {
           id: 'w3d3',
           dayNumber: 1,
-          title: 'Pondelok – Rotátory & jadro',
+          title: 'Monday – Rotators & core',
           videoSessionId: 'vs_w3_strength6',
           exercises: [
             {
@@ -1040,7 +1040,7 @@ export const SEED_PLAN: Plan = {
         {
           id: 'w3d4',
           dayNumber: 2,
-          title: 'Streda – Regenerácia & mobilita',
+          title: 'Wednesday – Recovery & mobility',
           videoSessionId: 'vs_w3_routine6',
           exercises: [
             {
@@ -1087,12 +1087,12 @@ export const SEED_PLAN: Plan = {
     // ------------------------------------------------------------------ WEEK 7
     {
       weekNumber: 7,
-      title: 'Konsolidácia I',
+      title: 'Advanced | Week 7',
       days: [
         {
           id: 'w4d1',
           dayNumber: 1,
-          title: 'Pondelok – Max sila jadra',
+          title: 'Monday – Max core strength',
           videoSessionId: 'vs_w1_strength1',
           exercises: [
             {
@@ -1136,7 +1136,7 @@ export const SEED_PLAN: Plan = {
         {
           id: 'w4d2',
           dayNumber: 2,
-          title: 'Streda – Funkčné vzory',
+          title: 'Wednesday – Functional patterns',
           videoSessionId: 'vs_w1_routine1',
           exercises: [
             {
@@ -1182,12 +1182,12 @@ export const SEED_PLAN: Plan = {
     // ------------------------------------------------------------------ WEEK 8
     {
       weekNumber: 8,
-      title: 'Konsolidácia II',
+      title: 'Advanced | Week 7I',
       days: [
         {
           id: 'w4d3',
           dayNumber: 1,
-          title: 'Pondelok – Kompletný tréning',
+          title: 'Monday – Complete training',
           videoSessionId: 'vs_w1_strength2',
           exercises: [
             {
@@ -1231,7 +1231,7 @@ export const SEED_PLAN: Plan = {
         {
           id: 'w4d4',
           dayNumber: 2,
-          title: 'Streda – Záverečná regenerácia',
+          title: 'Wednesday – Final recovery',
           videoSessionId: 'vs_w1_routine2',
           exercises: [
             {
