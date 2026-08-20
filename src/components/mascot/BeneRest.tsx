@@ -13,7 +13,7 @@ export default function BeneRest({ size = 160, className = "" }: BeneRestProps) 
       viewBox="0 0 200 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={className} style={{ animation: "beneRest 3s ease-in-out infinite" }}
     >
       {/* Ground shadow — wider, sitting */}
       <ellipse cx="100" cy="228" rx="50" ry="6" fill="#3D3929" opacity="0.12" />

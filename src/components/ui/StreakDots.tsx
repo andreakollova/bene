@@ -22,7 +22,7 @@ export function StreakDots({
         return (
           <div key={i} className="flex flex-col items-center gap-1.5">
             <div
-              className={`w-full aspect-square rounded-[12px] flex items-center justify-center transition-all duration-200 ${
+              className={`w-full aspect-square rounded-full flex items-center justify-center transition-all duration-200 ${
                 completed
                   ? "bg-black"
                   : isCurrent

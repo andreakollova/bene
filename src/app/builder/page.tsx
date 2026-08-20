@@ -98,16 +98,16 @@ export default function BuilderPage() {
   );
 
   return (
-    <div className="min-h-screen bg-cream-50 flex flex-col">
+    <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-cream-200">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
         <button
           onClick={() => router.back()}
           className="w-11 h-11 flex items-center justify-center"
         >
-          <X className="text-ink-muted" size={22} strokeWidth={1.75} />
+          <X className="text-gray-400" size={22} strokeWidth={1.75} />
         </button>
-        <h1 className="font-serif text-xl font-medium text-ink">
+        <h1 className="font-serif text-xl font-medium text-black">
           Zostav tréning
         </h1>
         <div className="w-11" />
@@ -115,12 +115,12 @@ export default function BuilderPage() {
 
       <div className="flex-1 overflow-y-auto px-6 py-6 max-w-xl mx-auto w-full space-y-4">
         {exercises.length === 0 && (
-          <div className="flex flex-col items-center gap-4 py-10">
+          <div className="flex flex-col items-center gap-4 py-12">
             <BeneStretch size={120} />
-            <p className="font-serif text-xl font-medium text-ink">
+            <p className="font-serif text-xl font-medium text-black">
               Poskladaj si tréning
             </p>
-            <p className="text-ink-muted text-center">
+            <p className="text-gray-400 text-center">
               Vyber cviky z knižnice a nastav opakovania
             </p>
           </div>
@@ -129,55 +129,55 @@ export default function BuilderPage() {
         {exercises.map((ex, i) => (
           <Card key={`${ex.id}_${i}`} className="p-4">
             <div className="flex items-center gap-2 mb-3">
-              <GripVertical className="text-ink-faint" size={18} />
-              <span className="flex-1 font-medium text-ink">{ex.name}</span>
+              <GripVertical className="text-gray-300" size={18} />
+              <span className="flex-1 font-medium text-black">{ex.name}</span>
               <button onClick={() => remove(i)}>
-                <X className="text-clay" size={16} strokeWidth={2} />
+                <X className="text-gray-400" size={16} strokeWidth={2} />
               </button>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-xs text-ink-muted mb-1">Série</p>
-                <div className="flex items-center bg-cream-200 rounded-input overflow-hidden">
+                <p className="text-[10px] text-gray-400 mb-1 uppercase tracking-widest">Série</p>
+                <div className="flex items-center bg-gray-100 rounded-input overflow-hidden">
                   <button
                     className="w-10 h-10 flex items-center justify-center"
                     onClick={() => updateSets(i, -1)}
                   >
-                    <Minus className="text-ink-muted" size={16} />
+                    <Minus className="text-gray-400" size={16} />
                   </button>
-                  <span className="flex-1 text-center font-medium text-ink">
+                  <span className="flex-1 text-center font-medium text-black">
                     {ex.customSets || ex.sets}
                   </span>
                   <button
                     className="w-10 h-10 flex items-center justify-center"
                     onClick={() => updateSets(i, 1)}
                   >
-                    <Plus className="text-ink-muted" size={16} />
+                    <Plus className="text-gray-400" size={16} />
                   </button>
                 </div>
               </div>
               <div>
-                <p className="text-xs text-ink-muted mb-1">
+                <p className="text-[10px] text-gray-400 mb-1 uppercase tracking-widest">
                   {typeof ex.customReps === "string" &&
                   String(ex.customReps).includes("s")
                     ? "Sekúnd"
                     : "Opakovaní"}
                 </p>
-                <div className="flex items-center bg-cream-200 rounded-input overflow-hidden">
+                <div className="flex items-center bg-gray-100 rounded-input overflow-hidden">
                   <button
                     className="w-10 h-10 flex items-center justify-center"
                     onClick={() => updateReps(i, -1)}
                   >
-                    <Minus className="text-ink-muted" size={16} />
+                    <Minus className="text-gray-400" size={16} />
                   </button>
-                  <span className="flex-1 text-center font-medium text-ink">
+                  <span className="flex-1 text-center font-medium text-black">
                     {ex.customReps || ex.reps}
                   </span>
                   <button
                     className="w-10 h-10 flex items-center justify-center"
                     onClick={() => updateReps(i, 1)}
                   >
-                    <Plus className="text-ink-muted" size={16} />
+                    <Plus className="text-gray-400" size={16} />
                   </button>
                 </div>
               </div>
@@ -187,7 +187,7 @@ export default function BuilderPage() {
 
         <button
           onClick={() => setShowLib(true)}
-          className="w-full flex items-center justify-center gap-2 py-3 border border-dashed border-sage rounded-btn text-sage font-medium hover:bg-sage-soft transition-colors"
+          className="w-full flex items-center justify-center gap-2 py-3 border border-dashed border-gray-300 rounded-full text-gray-400 font-medium hover:border-black hover:text-black transition-colors"
         >
           <Plus size={20} strokeWidth={1.75} />
           Pridať cvik
@@ -195,7 +195,7 @@ export default function BuilderPage() {
 
         {showLib && (
           <div className="mt-6">
-            <h3 className="font-serif text-xl font-medium text-ink mb-3">
+            <h3 className="font-serif text-xl font-medium text-black mb-4">
               Knižnica cvikov
             </h3>
             <div className="flex gap-2 overflow-x-auto no-scrollbar mb-4">
@@ -208,27 +208,27 @@ export default function BuilderPage() {
                 />
               ))}
             </div>
-            <div className="divide-y divide-cream-200">
+            <div className="divide-y divide-gray-200">
               {filtered.map((ex) => (
                 <button
                   key={ex.id}
                   onClick={() => addExercise(ex)}
-                  className="w-full flex items-center gap-3 py-3 text-left hover:bg-cream-100 transition-colors"
+                  className="w-full flex items-center gap-3 py-3 text-left hover:bg-gray-100 transition-colors"
                 >
-                  <div className="w-9 h-9 rounded-full bg-sage-soft flex items-center justify-center shrink-0">
+                  <div className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center shrink-0">
                     <Dumbbell
-                      className="text-sage"
-                      size={18}
-                      strokeWidth={1.75}
+                      className="text-black"
+                      size={16}
+                      strokeWidth={1.5}
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-ink truncate">{ex.name}</p>
-                    <p className="text-sm text-ink-muted">
+                    <p className="font-medium text-black truncate">{ex.name}</p>
+                    <p className="text-sm text-gray-400">
                       {ex.sets}x{ex.reps} · {ex.bodyPart}
                     </p>
                   </div>
-                  <Plus className="text-ink-faint shrink-0" size={18} />
+                  <Plus className="text-gray-300 shrink-0" size={18} />
                 </button>
               ))}
             </div>
@@ -238,19 +238,19 @@ export default function BuilderPage() {
 
       {/* Bottom bar */}
       {exercises.length > 0 && (
-        <div className="border-t border-cream-200 bg-cream-50 px-6 py-4">
+        <div className="border-t border-gray-200 bg-white px-6 py-4">
           <div className="max-w-xl mx-auto flex items-center justify-between">
             <div>
-              <p className="font-medium text-ink">
+              <p className="font-medium text-black">
                 {exercises.length} cvikov
               </p>
-              <p className="text-sm text-ink-muted">~{totalMin} min</p>
+              <p className="text-sm text-gray-400">~{totalMin} min</p>
             </div>
             <button
               onClick={startWorkout}
-              className="inline-flex items-center gap-2 bg-sage text-white px-6 py-3 rounded-btn font-semibold hover:bg-sage-dark transition-colors"
+              className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full font-semibold hover:opacity-80 transition-opacity"
             >
-              <Play size={18} fill="white" />
+              <Play size={16} fill="white" />
               Začať tréning
             </button>
           </div>

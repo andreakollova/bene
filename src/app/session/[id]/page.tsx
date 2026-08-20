@@ -39,11 +39,9 @@ export default function SessionPage() {
   const [phase, setPhase] = useState<Phase>("foam_roller");
   const [restSeconds, setRestSeconds] = useState(30);
 
-  // Foam roller timer state
   const [foamSeconds, setFoamSeconds] = useState(FOAM_ROLLER_SECONDS);
   const foamIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Derived state (no hooks after this)
   const dayPlan = plan?.weeks.flatMap((w) => w.days).find((d) => d.id === id)
     || customWorkouts.find((w) => w.id === id);
   const exercises = dayPlan?.exercises || [];
@@ -105,7 +103,6 @@ export default function SessionPage() {
     [ex, logPain, moveNext]
   );
 
-  // Foam roller countdown — start when phase is foam_roller
   useEffect(() => {
     if (phase !== "foam_roller") {
       if (foamIntervalRef.current) {
@@ -120,7 +117,6 @@ export default function SessionPage() {
         if (prev <= 1) {
           clearInterval(foamIntervalRef.current!);
           foamIntervalRef.current = null;
-          // Auto-advance when timer hits 0
           setTimeout(() => {
             setPhase(videoSession ? "video" : "exercise");
           }, 0);
@@ -141,8 +137,8 @@ export default function SessionPage() {
 
   if (!hydrated || !dayPlan) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen gap-4 bg-cream-50">
-        <p className="font-medium text-ink-muted">Cvičenie nenájdené</p>
+      <div className="flex flex-col items-center justify-center h-screen gap-4 bg-white">
+        <p className="font-medium text-gray-400">Cvičenie nenájdené</p>
         <Button onClick={() => router.back()} variant="ghost">
           Späť
         </Button>
@@ -158,47 +154,41 @@ export default function SessionPage() {
     const dashOffset = circumference * (1 - pct);
 
     return (
-      <div
-        className="min-h-screen flex flex-col items-center justify-between"
-        style={{ backgroundColor: "#FAF9F5" }}
-      >
+      <div className="min-h-screen flex flex-col items-center justify-between bg-white">
         {/* Top bar */}
         <div className="w-full flex items-center justify-between px-6 py-4">
           <button
             onClick={() => router.back()}
             className="w-11 h-11 flex items-center justify-center"
           >
-            <X className="text-ink-muted" size={22} strokeWidth={1.75} />
+            <X className="text-gray-400" size={22} strokeWidth={1.75} />
           </button>
-          <span className="text-sm font-semibold text-ink-muted">Príprava</span>
+          <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Príprava</span>
           <div className="w-11" />
         </div>
 
-        {/* Main content */}
         <div className="flex-1 flex flex-col items-center justify-center gap-8 px-6 w-full max-w-sm">
-          <h1 className="font-serif text-3xl font-semibold text-ink text-center">
+          <h1 className="font-serif text-3xl font-semibold text-black text-center">
             Foam roller
           </h1>
 
           {/* Circular timer */}
           <div className="relative flex items-center justify-center" style={{ width: 144, height: 144 }}>
             <svg width="144" height="144" style={{ position: "absolute", top: 0, left: 0, transform: "rotate(-90deg)" }}>
-              {/* Track */}
               <circle
                 cx="72"
                 cy="72"
                 r={radius}
                 fill="none"
-                stroke="#E8E5DC"
+                stroke="#E8E8E8"
                 strokeWidth="6"
               />
-              {/* Progress */}
               <circle
                 cx="72"
                 cy="72"
                 r={radius}
                 fill="none"
-                stroke="#3D3929"
+                stroke="#111111"
                 strokeWidth="6"
                 strokeLinecap="round"
                 strokeDasharray={circumference}
@@ -206,23 +196,22 @@ export default function SessionPage() {
                 style={{ transition: "stroke-dashoffset 0.5s linear" }}
               />
             </svg>
-            <span className="font-serif text-3xl font-semibold text-ink" style={{ lineHeight: 1 }}>
+            <span className="font-serif text-3xl font-semibold text-black" style={{ lineHeight: 1 }}>
               {formatTime(foamSeconds)}
             </span>
           </div>
 
           <BeneRest size={140} />
 
-          <p className="text-ink-muted text-center text-sm leading-relaxed">
+          <p className="text-gray-400 text-center text-sm leading-relaxed">
             Prejdi foam rollerom cez svaly, ktoré budeš dnes cvičiť. Pomaly, 30–60 sekúnd na každú oblasť.
           </p>
         </div>
 
-        {/* Skip button */}
         <div className="w-full px-6 pb-10">
           <button
             onClick={goToVideoOrExercises}
-            className="w-full py-3 flex items-center justify-center gap-2 text-ink-muted hover:text-ink transition-colors"
+            className="w-full py-3 flex items-center justify-center gap-2 text-gray-400 hover:text-black transition-colors"
           >
             <SkipForward size={18} strokeWidth={1.75} />
             <span>Preskočiť</span>
@@ -235,32 +224,24 @@ export default function SessionPage() {
   // --- VIDEO PHASE ---
   if (phase === "video" && videoSession) {
     return (
-      <div
-        className="min-h-screen flex flex-col"
-        style={{ backgroundColor: "#FAF9F5" }}
-      >
-        {/* Top bar */}
+      <div className="min-h-screen flex flex-col bg-white">
         <div className="flex items-center justify-between px-6 py-4">
           <button
             onClick={() => router.back()}
             className="w-11 h-11 flex items-center justify-center"
           >
-            <X className="text-ink-muted" size={22} strokeWidth={1.75} />
+            <X className="text-gray-400" size={22} strokeWidth={1.75} />
           </button>
-          <span className="text-sm font-semibold text-ink-muted">Video</span>
+          <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Video</span>
           <div className="w-11" />
         </div>
 
-        {/* Video + info */}
-        <div className="flex-1 flex flex-col px-6 gap-5 max-w-xl mx-auto w-full pb-8">
-          <h2 className="font-serif text-2xl font-semibold text-ink">
+        <div className="flex-1 flex flex-col px-6 gap-6 max-w-xl mx-auto w-full pb-8">
+          <h2 className="font-serif text-2xl font-semibold text-black">
             {videoSession.title}
           </h2>
 
-          <div
-            className="rounded-card overflow-hidden"
-            style={{ background: "#1A1A1A" }}
-          >
+          <div className="rounded-[20px] overflow-hidden bg-black">
             <video
               src={videoSession.videoUrl}
               autoPlay
@@ -271,7 +252,7 @@ export default function SessionPage() {
           </div>
 
           {videoSession.description && (
-            <p className="text-ink-muted text-sm leading-relaxed">
+            <p className="text-gray-400 text-sm leading-relaxed">
               {videoSession.description}
             </p>
           )}
@@ -279,8 +260,7 @@ export default function SessionPage() {
           <div className="mt-auto pt-4">
             <button
               onClick={goToExercises}
-              className="w-full py-3 rounded-btn font-semibold text-[15px] transition-colors"
-              style={{ backgroundColor: "#3D3929", color: "#FAF9F5" }}
+              className="w-full py-3 rounded-full font-semibold text-[15px] bg-black text-white transition-opacity hover:opacity-80"
             >
               Ďalej
             </button>
@@ -290,11 +270,11 @@ export default function SessionPage() {
     );
   }
 
-  // Guard for exercise phases — ex must exist
+  // Guard for exercise phases
   if (!ex) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen gap-4 bg-cream-50">
-        <p className="font-medium text-ink-muted">Cvičenie nenájdené</p>
+      <div className="flex flex-col items-center justify-center h-screen gap-4 bg-white">
+        <p className="font-medium text-gray-400">Cvičenie nenájdené</p>
         <Button onClick={() => router.back()} variant="ghost">
           Späť
         </Button>
@@ -303,31 +283,31 @@ export default function SessionPage() {
   }
 
   return (
-    <div className="min-h-screen bg-cream-50 flex flex-col">
+    <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
       <div className="flex items-center gap-3 px-6 py-4">
         <button
           onClick={() => router.back()}
           className="w-11 h-11 flex items-center justify-center"
         >
-          <X className="text-ink-muted" size={22} strokeWidth={1.75} />
+          <X className="text-gray-400" size={22} strokeWidth={1.75} />
         </button>
         <div className="flex-1">
           <ProgressBar progress={progress} />
         </div>
-        <span className="text-sm font-semibold text-ink-muted min-w-[32px] text-right">
+        <span className="text-[10px] font-semibold text-gray-400 min-w-[32px] text-right uppercase tracking-widest">
           {exerciseIndex + 1}/{total}
         </span>
       </div>
 
       {phase === "exercise" && (
         <div className="flex-1 flex flex-col px-6 max-w-xl mx-auto w-full">
-          <h2 className="font-serif text-2xl font-semibold text-ink">
+          <h2 className="font-serif text-2xl font-semibold text-black">
             {ex.name}
           </h2>
-          <p className="text-ink-muted mt-1">{ex.description}</p>
+          <p className="text-gray-400 mt-1">{ex.description}</p>
 
-          <div className="flex-1 flex items-center justify-center bg-cream-100 rounded-card my-6">
+          <div className="flex-1 flex items-center justify-center bg-gray-100 rounded-[20px] my-6">
             <BeneExercise size={160} />
           </div>
 
@@ -336,7 +316,7 @@ export default function SessionPage() {
               current={currentSet}
               total={ex.sets}
             />
-            <p className="text-sm text-ink-muted mt-2">
+            <p className="text-sm text-gray-400 mt-2">
               Séria {currentSet} z {ex.sets} · {ex.reps} {typeof ex.reps === "string" ? "" : "opakovaní"}
             </p>
           </div>
@@ -347,7 +327,7 @@ export default function SessionPage() {
             </Button>
             <button
               onClick={moveNext}
-              className="w-full flex items-center justify-center gap-2 py-2 text-ink-muted hover:text-ink transition-colors"
+              className="w-full flex items-center justify-center gap-2 py-2 text-gray-400 hover:text-black transition-colors"
             >
               <SkipForward size={18} strokeWidth={1.75} />
               <span>Preskočiť cvik</span>
@@ -359,7 +339,7 @@ export default function SessionPage() {
       {phase === "rest" && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 gap-6">
           <BeneRest size={140} />
-          <h2 className="font-serif text-2xl font-semibold text-ink">
+          <h2 className="font-serif text-2xl font-semibold text-black">
             Oddych
           </h2>
           <RestTimer
@@ -375,10 +355,10 @@ export default function SessionPage() {
       {phase === "pain_check" && (
         <div className="flex-1 flex flex-col items-center justify-center px-6 gap-6 max-w-md mx-auto w-full">
           <BeneConcerned size={120} />
-          <h2 className="font-serif text-2xl font-semibold text-ink">
+          <h2 className="font-serif text-2xl font-semibold text-black">
             Ako to cítiš?
           </h2>
-          <p className="text-ink-muted text-center">
+          <p className="text-gray-400 text-center">
             Ak bolesť pretrváva, porozprávaj sa so svojím fyzioterapeutom.
           </p>
           <PainCheck onSelect={handlePain} />

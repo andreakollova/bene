@@ -76,3 +76,36 @@ body {
 .animate-slide-up {
   animation: slideUp 0.35s ease-out both;
 }
+
+/* ─── Bene mascot animations ──────────────────────────────── */
+@keyframes beneWave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(8deg); }
+  75% { transform: rotate(-4deg); }
+}
+
+@keyframes beneStretch {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.04); }
+}
+
+@keyframes beneExercise {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes beneRest {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.98); }
+}
+
+@keyframes beneConcerned {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+@keyframes beneOk {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
+}

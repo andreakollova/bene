@@ -137,71 +137,55 @@ export default function DomovPage() {
           </Card>
         ) : currentDay ? (
           <Card className="p-6">
-            <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-3">
-              TÝŽDEŇ {currentWeekIndex + 1} &middot; DEŇ {currentDayIndex + 1}
-            </p>
-            <h2 className="font-serif text-xl font-semibold text-black">
-              Pokračovať v programe
-            </h2>
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-1">
+                  TÝŽDEŇ {currentWeekIndex + 1} · DEŇ {currentDayIndex + 1}
+                </p>
+                <h2 className="font-serif text-xl font-semibold text-black">
+                  Pokračovať v programe
+                </h2>
+              </div>
+              <BeneIdle size={56} />
+            </div>
+
+            {/* Today's content */}
             {(() => {
               const vs = currentDay.videoSessionId
                 ? SEED_VIDEO_SESSIONS.find((v) => v.id === currentDay.videoSessionId)
                 : null;
-              const exNames = currentDay.exercises.map((e) => e.name);
-              const hasIAM = exNames.some((n) =>
-                SEED_TRAINER_REELS.some((r) => r.id.startsWith("reel_iam") && r.title === n)
-              );
-              const sportSets = [
-                { prefix: "reel_sport_s1", label: "SportWell Blackpink" },
-                { prefix: "reel_sport_s2", label: "SportWell White" },
-                { prefix: "reel_sport_s3", label: "SportWell All Black" },
-                { prefix: "reel_sport_s4", label: "SportWell Pink" },
-                { prefix: "reel_sport_s5", label: "SportWell Blue" },
-              ];
-              let trainerLabel = "I AM Academy";
-              if (!hasIAM) {
-                const matchedSet = sportSets.find((s) =>
-                  exNames.some((n) =>
-                    SEED_TRAINER_REELS.some((r) => r.id.startsWith(s.prefix) && r.title === n)
-                  )
-                );
-                trainerLabel = matchedSet ? matchedSet.label : "Mix";
-              }
-              const hasMultipleSets = sportSets.filter((s) =>
-                exNames.some((n) =>
-                  SEED_TRAINER_REELS.some((r) => r.id.startsWith(s.prefix) && r.title === n)
-                )
-              ).length > 1;
-              if (hasIAM && sportSets.some((s) =>
-                exNames.some((n) =>
-                  SEED_TRAINER_REELS.some((r) => r.id.startsWith(s.prefix) && r.title === n)
-                )
-              )) trainerLabel = "Mix";
-              if (hasMultipleSets) trainerLabel = "Mix";
               return (
-                <div className="text-sm text-gray-400 mt-1 mb-5 space-y-1">
-                  {vs && <p>Video: {vs.title}</p>}
-                  <p>+ {currentDay.exercises.length} {currentDay.exercises.length === 1 ? "cvik" : currentDay.exercises.length < 5 ? "cviky" : "cvikov"} ({trainerLabel})</p>
+                <div className="space-y-2 mb-5">
+                  {vs && (
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-black" />
+                      <span className="text-sm text-black">{vs.title}</span>
+                    </div>
+                  )}
+                  <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-gray-300" />
+                    <span className="text-sm text-gray-400">
+                      {currentDay.exercises.length} {currentDay.exercises.length < 5 ? "cviky" : "cvikov"} od trénera
+                    </span>
+                  </div>
                 </div>
               );
             })()}
 
-            <div className="flex items-center justify-between text-xs text-gray-400 mb-2 uppercase tracking-widest">
-              <span>{completedCount} z {totalDays} cvičení</span>
-              <span>{Math.round(planProgress * 100)}%</span>
-            </div>
+            {/* Progress */}
             <ProgressBar progress={planProgress} />
+            <p className="text-[10px] text-gray-400 mt-2 uppercase tracking-widest">
+              {completedCount} z {totalDays} · {Math.round(planProgress * 100)}%
+            </p>
 
-            <div className="flex items-end justify-between mt-6">
-              <BeneIdle size={80} />
-              <Link
-                href={`/session/${currentDay.id}`}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-[15px] bg-black text-white transition-opacity hover:opacity-80"
-              >
-                <Play size={16} fill="white" color="white" />
-                Začať
-              </Link>
-            </div>
+            {/* CTA */}
+            <Link
+              href={`/session/${currentDay.id}`}
+              className="mt-5 w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-[15px] bg-black text-white transition-opacity hover:opacity-80"
+            >
+              <Play size={16} fill="white" color="white" />
+              Začať tréning
+            </Link>
           </Card>
         ) : (
           <Card className="p-6">

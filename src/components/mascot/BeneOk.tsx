@@ -13,7 +13,7 @@ export default function BeneOk({ size = 160, className = "" }: BeneOkProps) {
       viewBox="0 0 200 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={className} style={{ animation: "beneOk 2s ease-in-out infinite" }}
     >
       {/* Ground shadow */}
       <ellipse cx="100" cy="228" rx="35" ry="6" fill="#3D3929" opacity="0.12" />
