@@ -9,16 +9,13 @@ interface QuoteCardProps {
 export function QuoteCard({ quote, author, className = "" }: QuoteCardProps) {
   return (
     <div
-      className={`bg-cream-100 border border-cream-200 rounded-card p-4 pl-5 relative ${className}`}
+      className={`border-l-2 border-black pl-5 py-2 relative ${className}`}
     >
-      {/* Left sage accent border */}
-      <div className="absolute left-0 top-4 bottom-4 w-[3px] bg-sage rounded-pill" />
-
-      <blockquote className="font-serif text-base italic text-ink leading-relaxed">
+      <blockquote className="font-serif text-base italic text-black leading-relaxed">
         &ldquo;{quote}&rdquo;
       </blockquote>
       {author && (
-        <p className="font-sans text-xs text-ink-muted mt-2">&mdash; {author}</p>
+        <p className="font-sans text-xs text-gray-400 mt-2 uppercase tracking-widest">&mdash; {author}</p>
       )}
     </div>
   );

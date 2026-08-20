@@ -8,7 +8,7 @@ interface CardProps {
 
 export function Card({ children, onClick, className = "" }: CardProps) {
   const base =
-    "bg-cream-100 border border-cream-200 rounded-card p-4 transition-opacity duration-150";
+    "bg-white border border-gray-200 rounded-[20px] p-4 transition-opacity duration-150";
   const clickable = onClick
     ? "cursor-pointer hover:opacity-90 active:opacity-75"
     : "";

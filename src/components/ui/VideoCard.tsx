@@ -29,7 +29,7 @@ export function VideoCard({
       tabIndex={onClick ? 0 : undefined}
       onClick={onClick}
       onKeyDown={onClick ? (e) => e.key === "Enter" && onClick() : undefined}
-      className={`relative flex-shrink-0 rounded-card overflow-hidden bg-cream-200 cursor-pointer
+      className={`relative flex-shrink-0 rounded-[20px] overflow-hidden bg-gray-200 cursor-pointer
         group transition-opacity duration-150 hover:opacity-90 active:opacity-75 ${sizeClass} ${className}`}
     >
       {coverSrc && (
@@ -40,12 +40,12 @@ export function VideoCard({
         />
       )}
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/5" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/0" />
 
       {/* Type badge top-left */}
       {type && (
         <div className="absolute top-2 left-2">
-          <span className="text-[10px] font-semibold px-2.5 py-1 rounded-pill" style={{ backgroundColor: 'rgba(124,144,112,0.9)', color: '#fff' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full bg-black/80 text-white">
             {type}
           </span>
         </div>
@@ -53,14 +53,14 @@ export function VideoCard({
 
       {/* Duration badge top-right */}
       <div className="absolute top-2 right-2">
-        <span className="text-[10px] font-semibold text-white bg-black/40 backdrop-blur-sm px-2 py-0.5 rounded-pill">
+        <span className="text-[10px] font-semibold text-white bg-black/80 px-2 py-0.5 rounded-full">
           {duration}
         </span>
       </div>
 
       {/* Title bottom */}
       <div className="absolute bottom-0 left-0 right-0 p-3">
-        <p className="font-serif text-sm text-white font-medium leading-snug line-clamp-2 drop-shadow-sm">
+        <p className="font-sans text-sm text-white font-medium leading-snug line-clamp-2 drop-shadow-sm">
           {title}
         </p>
       </div>

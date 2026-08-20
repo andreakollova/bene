@@ -6,24 +6,18 @@
   --font-hanken: 'Hanken Grotesk', system-ui, sans-serif;
 }
 
-/* ─── Color tokens — light mode ──────────────────────────────── */
+/* ─── Color tokens ───────────────────────────────────────────── */
 :root {
-  --color-bg: #FAF9F5;
-  --color-card: #F0EEE6;
-  --color-pressed: #E8E6DC;
+  --color-bg: #FFFFFF;
+  --color-card: #FFFFFF;
+  --color-border: #E8E8E8;
+  --color-text: #111111;
+  --color-muted: #888888;
+  --color-faint: #CCCCCC;
+  --color-surface: #F5F5F5;
 
-  --color-sage: #7C9070;
-  --color-sage-dark: #64775A;
-  --color-sage-soft: #E4EADF;
-  --color-sage-light: #8FA383;
-
-  --color-ink: #3D3929;
-  --color-ink-muted: #7A7568;
-  --color-ink-faint: #A8A395;
-
-  --color-ochre: #D9A26A;
-  --color-clay: #B5654F;
-  --color-amber: #C89B5A;
+  /* Mascot only — sage green stays for Bene SVGs */
+  --color-mascot: #7C9070;
 }
 
 /* ─── Force light mode ──────────────────────────────────────── */
@@ -33,8 +27,8 @@ html {
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-ink);
+  background-color: #FFFFFF;
+  color: #111111;
   font-family: var(--font-hanken), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

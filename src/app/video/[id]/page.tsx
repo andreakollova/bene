@@ -33,7 +33,6 @@ export default function VideoPage() {
   const repSettings = useStore((s) => s.repSettings);
   const currentWeekIndex = useStore((s) => s.currentWeekIndex);
 
-  // Workout timer state
   const [timerRunning, setTimerRunning] = useState(false);
   const [timerSeconds, setTimerSeconds] = useState(0);
   const [currentSerie, setCurrentSerie] = useState(1);
@@ -47,22 +46,21 @@ export default function VideoPage() {
     SEED_STRETCHES.find((v) => v.id === id) ||
     SEED_TRAINER_REELS.find((v) => v.id === id);
 
-  // Find matching exercise for reps info
   const exercise = EXERCISE_LIBRARY.find(
     (e) => e.name === video?.title
   );
 
   if (!video) {
     return (
-      <div className="w-full px-6 py-6 bg-cream-50 min-h-screen">
+      <div className="w-full px-6 py-6 bg-white min-h-screen">
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-2 text-ink-muted mb-6"
+          className="flex items-center gap-2 text-gray-400 mb-6"
         >
           <ArrowLeft size={20} />
           <span className="text-sm font-medium">Spat</span>
         </button>
-        <p className="font-serif text-xl text-ink">Video nenájdené</p>
+        <p className="font-serif text-xl text-black">Video nenájdené</p>
       </div>
     );
   }
@@ -71,7 +69,6 @@ export default function VideoPage() {
   const isTrainerReel = video.type === "trainer_exercise";
   const isYouTube = video.videoUrl.includes("youtube.com");
 
-  // Get reps info
   const settings = exercise
     ? repSettings[exercise.id] ?? {
         defaultReps:
@@ -88,7 +85,6 @@ export default function VideoPage() {
     ? settings.defaultReps + settings.weeklyIncrement * currentWeekIndex
     : null;
 
-  // Timer logic
   const totalSets = settings?.defaultSets ?? 3;
   const exerciseDuration = currentReps ?? 30;
   const restDuration = 30;
@@ -120,16 +116,13 @@ export default function VideoPage() {
       setTimerSeconds((prev) => {
         if (prev <= 1) {
           if (isRest) {
-            // Rest done → next serie
             setIsRest(false);
             setCurrentSerie((s) => s + 1);
             return exerciseDuration;
           } else if (currentSerie < totalSets) {
-            // Serie done → rest
             setIsRest(true);
             return restDuration;
           } else {
-            // All done
             setTimerRunning(false);
             return 0;
           }
@@ -155,23 +148,23 @@ export default function VideoPage() {
   };
 
   return (
-    <div className="w-full bg-cream-50 min-h-screen">
+    <div className="w-full bg-white min-h-screen">
       {/* Header */}
-      <div className="flex items-center gap-3 px-6 py-4">
+      <div className="flex items-center gap-3 px-6 py-5">
         <button
           onClick={() => router.back()}
           className="w-11 h-11 flex items-center justify-center"
         >
-          <ArrowLeft className="text-ink" size={22} strokeWidth={1.75} />
+          <ArrowLeft className="text-black" size={22} strokeWidth={1.75} />
         </button>
-        <h1 className="font-serif text-lg text-ink font-semibold flex-1 truncate">
+        <h1 className="font-serif text-lg text-black font-semibold flex-1 truncate">
           {video.title}
         </h1>
       </div>
 
       {/* Video player */}
       {isYouTube ? (
-        <div className="w-full aspect-video rounded-card overflow-hidden mx-0">
+        <div className="w-full aspect-video overflow-hidden mx-0">
           <iframe
             src={`${video.videoUrl}?autoplay=1&rel=0`}
             allow="autoplay; encrypted-media"
@@ -183,7 +176,7 @@ export default function VideoPage() {
       ) : (
         <div
           className={`overflow-hidden bg-black ${
-            isPortrait ? "mx-6 rounded-card" : "w-full"
+            isPortrait ? "mx-6 rounded-[20px]" : "w-full"
           }`}
           style={isPortrait ? { maxHeight: "60vh" } : undefined}
         >
@@ -206,15 +199,15 @@ export default function VideoPage() {
       )}
 
       {/* Controls */}
-      <div className="px-6 py-4 space-y-4">
+      <div className="px-6 py-6 space-y-5">
         {/* Sound controls */}
         <div className="flex gap-2">
           <button
             onClick={toggleMute}
-            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-btn border text-sm font-medium transition-colors ${
+            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-full border text-sm font-medium transition-colors ${
               !muted
-                ? "border-sage text-sage"
-                : "border-cream-200 text-ink-muted"
+                ? "border-black text-black"
+                : "border-gray-200 text-gray-400"
             }`}
           >
             <Volume2 size={16} strokeWidth={1.75} />
@@ -222,10 +215,10 @@ export default function VideoPage() {
           </button>
           <button
             onClick={() => { setMuted(true); if (videoRef.current) videoRef.current.muted = true; }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-btn border text-sm font-medium transition-colors ${
+            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-full border text-sm font-medium transition-colors ${
               muted
-                ? "border-sage text-sage"
-                : "border-cream-200 text-ink-muted"
+                ? "border-black text-black"
+                : "border-gray-200 text-gray-400"
             }`}
           >
             <Music size={16} strokeWidth={1.75} />
@@ -233,10 +226,10 @@ export default function VideoPage() {
           </button>
           <button
             onClick={toggleLoop}
-            className={`flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-btn border text-sm font-medium transition-colors ${
+            className={`flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-full border text-sm font-medium transition-colors ${
               looping
-                ? "border-sage text-sage"
-                : "border-cream-200 text-ink-muted"
+                ? "border-black text-black"
+                : "border-gray-200 text-gray-400"
             }`}
           >
             <Repeat size={16} strokeWidth={1.75} />
@@ -245,61 +238,59 @@ export default function VideoPage() {
 
         {/* Workout timer for trainer reels */}
         {isTrainerReel && settings && (
-          <div className="bg-cream-100 border border-cream-200 rounded-card p-4">
-            {/* Serie indicator */}
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-semibold text-ink">
+          <div className="bg-white border border-gray-200 rounded-[20px] p-5">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-sm font-semibold text-black">
                 Séria {currentSerie} z {totalSets}
               </span>
-              <span className={`text-xs font-semibold px-2 py-0.5 rounded-pill ${
-                isRest ? "bg-amber/20 text-amber" : timerRunning ? "bg-sage/20 text-sage" : "bg-cream-200 text-ink-muted"
+              <span className={`text-[10px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full ${
+                isRest
+                  ? "bg-amber-100 text-amber-600"
+                  : timerRunning
+                  ? "bg-gray-100 text-black"
+                  : "bg-gray-100 text-gray-400"
               }`}>
                 {isRest ? "Oddych" : timerRunning ? "Cvičenie" : currentSerie > totalSets ? "Hotovo!" : "Pripravená"}
               </span>
             </div>
 
-            {/* Big countdown */}
-            <div className="text-center py-4">
-              <p className="font-serif text-5xl font-semibold text-ink" style={{ fontVariantNumeric: "tabular-nums" }}>
+            <div className="text-center py-5">
+              <p className="font-serif text-5xl font-semibold text-black" style={{ fontVariantNumeric: "tabular-nums" }}>
                 {Math.floor(timerSeconds / 60)}:{String(timerSeconds % 60).padStart(2, "0")}
               </p>
-              <p className="text-xs text-ink-muted mt-1">
+              <p className="text-[10px] text-gray-400 mt-2 uppercase tracking-widest">
                 {isRest ? "oddych" : `${exerciseDuration}s na sériu · ${restDuration}s oddych`}
               </p>
             </div>
 
-            {/* Progress bar */}
-            <div className="h-1.5 bg-cream-200 rounded-pill overflow-hidden mb-4">
+            <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden mb-5">
               <div
-                className="h-full rounded-pill transition-all duration-1000"
+                className="h-full rounded-full transition-all duration-1000 bg-black"
                 style={{
                   width: `${((isRest ? restDuration : exerciseDuration) - timerSeconds) / (isRest ? restDuration : exerciseDuration) * 100}%`,
-                  backgroundColor: isRest ? "#C89B5A" : "#7C9070",
                 }}
               />
             </div>
 
-            {/* Controls */}
             <div className="flex gap-2">
               {!timerRunning && currentSerie <= totalSets ? (
                 <button
                   onClick={startTimer}
-                  className="flex-1 py-2.5 rounded-btn font-semibold text-sm transition-colors"
-                  style={{ backgroundColor: "#3D3929", color: "#FAF8F5" }}
+                  className="flex-1 py-2.5 rounded-full font-semibold text-sm bg-black text-white transition-opacity hover:opacity-80"
                 >
                   {currentSerie === 1 && !isRest ? "Štart" : "Pokračovať"}
                 </button>
               ) : timerRunning ? (
                 <button
                   onClick={stopTimer}
-                  className="flex-1 py-2.5 rounded-btn border border-cream-200 font-semibold text-sm text-ink-muted"
+                  className="flex-1 py-2.5 rounded-full border border-gray-200 font-semibold text-sm text-gray-400"
                 >
                   Pauza
                 </button>
               ) : (
                 <button
                   onClick={resetTimer}
-                  className="flex-1 py-2.5 rounded-btn border border-cream-200 font-semibold text-sm text-ink-muted"
+                  className="flex-1 py-2.5 rounded-full border border-gray-200 font-semibold text-sm text-gray-400"
                 >
                   Znova
                 </button>
@@ -307,7 +298,7 @@ export default function VideoPage() {
               {(timerRunning || currentSerie > 1) && currentSerie <= totalSets && (
                 <button
                   onClick={resetTimer}
-                  className="px-4 py-2.5 rounded-btn border border-cream-200 text-sm text-ink-muted"
+                  className="px-4 py-2.5 rounded-full border border-gray-200 text-sm text-gray-400"
                 >
                   Reset
                 </button>
@@ -318,7 +309,7 @@ export default function VideoPage() {
 
         {/* Description */}
         {video.description && (
-          <p className="text-sm text-ink-muted leading-relaxed">
+          <p className="text-sm text-gray-400 leading-relaxed">
             {video.description}
           </p>
         )}
@@ -328,9 +319,9 @@ export default function VideoPage() {
           const idx = Math.abs((video.id.length * 7 + video.title.length) % BENE_QUOTES.length);
           const { Mascot, text } = BENE_QUOTES[idx];
           return (
-            <div className="flex items-center gap-3 bg-cream-100 rounded-card p-3 mt-2">
+            <div className="flex items-center gap-4 border border-gray-200 rounded-[20px] p-4 mt-2">
               <Mascot size={50} />
-              <p className="text-sm text-ink-muted italic flex-1">{text}</p>
+              <p className="text-sm text-gray-400 italic flex-1">{text}</p>
             </div>
           );
         })()}

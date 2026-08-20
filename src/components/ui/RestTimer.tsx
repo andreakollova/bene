@@ -54,10 +54,10 @@ export function RestTimer({
       <div className="relative flex items-center justify-center">
         <ProgressRing progress={progress} size={140} strokeWidth={8} />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="font-serif text-4xl text-ink font-semibold leading-none">
+          <span className="font-serif text-4xl text-black font-semibold leading-none">
             {formatTime(remaining)}
           </span>
-          <span className="font-sans text-xs text-ink-muted mt-1">oddych</span>
+          <span className="font-sans text-xs text-gray-400 mt-1 uppercase tracking-widest">oddych</span>
         </div>
       </div>
       <Button variant="ghost" onClick={handleAdd15}>

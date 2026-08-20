@@ -11,11 +11,11 @@ interface ChipProps {
 
 export function Chip({ label, active = false, onClick, className = "" }: ChipProps) {
   const base =
-    "inline-flex items-center px-3 py-1 rounded-pill text-xs font-sans font-medium transition-colors duration-150 select-none";
+    "inline-flex items-center px-3 py-1 rounded-full text-xs font-sans font-medium tracking-wide transition-colors duration-150 select-none";
   const state = active
-    ? "bg-sage-soft text-sage-dark"
-    : "bg-cream-200 text-ink-muted";
-  const interactive = onClick ? "cursor-pointer hover:opacity-80 active:opacity-60" : "";
+    ? "bg-black text-white"
+    : "border border-black/20 text-black bg-transparent";
+  const interactive = onClick ? "cursor-pointer hover:opacity-70 active:opacity-50" : "";
 
   return (
     <span

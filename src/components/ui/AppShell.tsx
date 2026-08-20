@@ -11,13 +11,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const hideNav = hideNavPaths.some((p) => pathname.startsWith(p));
 
   return (
-    <div className="flex justify-center min-h-screen" style={{ backgroundColor: '#FAF8F5' }}>
+    <div className="flex justify-center min-h-screen bg-white">
       {/* Phone frame */}
-      <div className="relative w-full max-w-[430px] min-h-screen shadow-2xl" style={{ backgroundColor: '#FAF8F5' }}>
+      <div className="relative w-full max-w-[430px] min-h-screen border-x border-gray-200 bg-white">
         {/* Top logo bar */}
         {!hideNav && (
-          <div className="sticky top-0 z-40 backdrop-blur-md border-b border-cream-200" style={{ backgroundColor: 'rgba(250,248,245,0.9)' }}>
-            <Link href="/domov" className="flex justify-center py-2">
+          <div className="sticky top-0 z-40 bg-white border-b border-gray-200">
+            <Link href="/domov" className="flex justify-center py-3">
               <img src="/benelogo.png" alt="Bene" className="h-8" />
             </Link>
           </div>

@@ -62,7 +62,6 @@ export default function DomovPage() {
 
   const trainerSets = useMemo(() => {
     const iamReels = SEED_TRAINER_REELS.filter((r) => r.id.startsWith("reel_iam"));
-    // Group sport reels by equipment type
     const sportS1 = SEED_TRAINER_REELS.filter((r) => r.id.startsWith("reel_sport_s1"));
     const sportS2 = SEED_TRAINER_REELS.filter((r) => r.id.startsWith("reel_sport_s2"));
     const sportS3 = SEED_TRAINER_REELS.filter((r) => r.id.startsWith("reel_sport_s3"));
@@ -80,7 +79,6 @@ export default function DomovPage() {
     return sets;
   }, []);
 
-  // Equipment categories - each reel tagged by equipment visible in video
   const equipmentCategories = useMemo(() => {
     const cats: Record<string, typeof SEED_TRAINER_REELS> = {
       "Vlastná váha": [],
@@ -111,51 +109,48 @@ export default function DomovPage() {
   if (!hydrated) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-pulse font-serif text-xl text-ink-muted">Bene</div>
+        <div className="animate-pulse font-serif text-xl text-gray-400">Bene</div>
       </div>
     );
   }
 
   return (
-    <div className="w-full px-6 py-6 space-y-6">
+    <div className="w-full px-6 py-8 space-y-8">
       {/* ── Pokračovať v programe ── */}
       <section>
         {todayDone ? (
-          <Card className="p-5">
+          <Card className="p-6">
             <div className="flex items-center gap-4">
               <BeneCelebrate size={80} />
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <Check size={18} strokeWidth={2} style={{ color: "#7C9070" }} />
-                  <span className="font-serif text-lg font-semibold" style={{ color: "#7C9070" }}>
+                  <Check size={18} strokeWidth={2} className="text-black" />
+                  <span className="font-serif text-lg font-semibold text-black">
                     Hotovo na dnes
                   </span>
                 </div>
-                <p className="text-sm text-ink-muted">
+                <p className="text-sm text-gray-400">
                   Zajtra ťa čaká deň {currentWeekIndex * 4 + currentDayIndex + 2}
                 </p>
               </div>
             </div>
           </Card>
         ) : currentDay ? (
-          <Card className="p-5">
-            <p className="text-[11px] font-semibold tracking-[1.2px] uppercase text-ink-faint mb-2">
-              TÝŽDEŇ {currentWeekIndex + 1} · DEŇ {currentDayIndex + 1}
+          <Card className="p-6">
+            <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-3">
+              TÝŽDEŇ {currentWeekIndex + 1} &middot; DEŇ {currentDayIndex + 1}
             </p>
-            <h2 className="font-serif text-xl font-semibold text-ink">
+            <h2 className="font-serif text-xl font-semibold text-black">
               Pokračovať v programe
             </h2>
-            {/* Program video name */}
             {(() => {
               const vs = currentDay.videoSessionId
                 ? SEED_VIDEO_SESSIONS.find((v) => v.id === currentDay.videoSessionId)
                 : null;
-              // Determine trainer set type from exercises
               const exNames = currentDay.exercises.map((e) => e.name);
               const hasIAM = exNames.some((n) =>
                 SEED_TRAINER_REELS.some((r) => r.id.startsWith("reel_iam") && r.title === n)
               );
-              // Determine specific set name
               const sportSets = [
                 { prefix: "reel_sport_s1", label: "SportWell Blackpink" },
                 { prefix: "reel_sport_s2", label: "SportWell White" },
@@ -172,7 +167,6 @@ export default function DomovPage() {
                 );
                 trainerLabel = matchedSet ? matchedSet.label : "Mix";
               }
-              // Check if mixed
               const hasMultipleSets = sportSets.filter((s) =>
                 exNames.some((n) =>
                   SEED_TRAINER_REELS.some((r) => r.id.startsWith(s.prefix) && r.title === n)
@@ -185,59 +179,81 @@ export default function DomovPage() {
               )) trainerLabel = "Mix";
               if (hasMultipleSets) trainerLabel = "Mix";
               return (
-                <div className="text-sm text-ink-muted mt-1 mb-4 space-y-1">
+                <div className="text-sm text-gray-400 mt-1 mb-5 space-y-1">
                   {vs && <p>Video: {vs.title}</p>}
                   <p>+ {currentDay.exercises.length} {currentDay.exercises.length === 1 ? "cvik" : currentDay.exercises.length < 5 ? "cviky" : "cvikov"} ({trainerLabel})</p>
                 </div>
               );
             })()}
 
-            {/* Progress */}
-            <div className="flex items-center justify-between text-xs text-ink-muted mb-2">
+            <div className="flex items-center justify-between text-xs text-gray-400 mb-2 uppercase tracking-widest">
               <span>{completedCount} z {totalDays} cvičení</span>
               <span>{Math.round(planProgress * 100)}%</span>
             </div>
             <ProgressBar progress={planProgress} />
 
-            <div className="flex items-end justify-between mt-5">
+            <div className="flex items-end justify-between mt-6">
               <BeneIdle size={80} />
               <Link
                 href={`/session/${currentDay.id}`}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-btn font-semibold text-[15px] transition-colors"
-                style={{ backgroundColor: "#3D3929", color: "#FAF9F5" }}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-[15px] bg-black text-white transition-opacity hover:opacity-80"
               >
-                <Play size={16} fill="#FAF9F5" color="#FAF9F5" />
+                <Play size={16} fill="white" color="white" />
                 Začať
               </Link>
             </div>
           </Card>
         ) : (
-          <Card className="p-5 flex items-center gap-4">
-            <BeneIdle size={70} />
-            <p className="font-medium text-ink-muted">Dnes je voľný deň</p>
+          <Card className="p-6">
+            <div className="flex items-center gap-4 mb-5">
+              <BeneIdle size={70} />
+              <div>
+                <h2 className="font-serif text-lg font-semibold text-black">
+                  Máš chuť si dnes zacvičiť?
+                </h2>
+                <p className="text-sm text-gray-400 mt-0.5">Dnes nemáš naplánovaný tréning</p>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              {plan && currentDay === undefined && plan.weeks[currentWeekIndex]?.days[0] && (
+                <Link
+                  href={`/session/${plan.weeks[currentWeekIndex].days[0].id}`}
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-semibold text-sm bg-black text-white transition-opacity hover:opacity-80"
+                >
+                  <Play size={14} fill="white" color="white" />
+                  Pokračovať
+                </Link>
+              )}
+              <Link
+                href="/builder"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-semibold text-sm border border-black text-black transition-opacity hover:opacity-70"
+              >
+                Vybrať tréning
+              </Link>
+            </div>
           </Card>
         )}
       </section>
 
       {/* ── Séria + Týždeň ── */}
       <div className="flex gap-3">
-        <Card className="flex-1 p-4 text-center">
-          <p className="font-serif text-2xl font-semibold text-ink">{streak}</p>
-          <p className="text-xs text-ink-muted mt-0.5">
+        <Card className="flex-1 p-5 text-center">
+          <p className="font-serif text-3xl font-semibold text-black">{streak}</p>
+          <p className="text-[10px] text-gray-400 mt-1 uppercase tracking-widest">
             {streak === 1 ? "deň v sérii" : "dní v sérii"}
           </p>
         </Card>
-        <Card className="flex-1 p-4 text-center">
-          <p className="font-serif text-2xl font-semibold text-ink">
+        <Card className="flex-1 p-5 text-center">
+          <p className="font-serif text-3xl font-semibold text-black">
             {currentWeekIndex + 1}/{plan?.totalWeeks || 4}
           </p>
-          <p className="text-xs text-ink-muted mt-0.5">týždeň</p>
+          <p className="text-[10px] text-gray-400 mt-1 uppercase tracking-widest">týždeň</p>
         </Card>
       </div>
 
       {/* ── Tento týždeň ── */}
       <div>
-        <p className="text-[11px] font-semibold tracking-[1.2px] uppercase text-ink-faint mb-3">
+        <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-4">
           TENTO TÝŽDEŇ
         </p>
         <StreakDots completedDays={weekProgress} currentDay={adjustedDay} />
@@ -248,8 +264,8 @@ export default function DomovPage() {
 
       {/* ── Videá programu ── */}
       <section>
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="font-serif text-xl font-medium text-ink">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="font-serif text-xl font-medium text-black">
             Videá programu
           </h2>
         </div>
@@ -270,7 +286,7 @@ export default function DomovPage() {
 
       {/* ── Strečing ── */}
       <section>
-        <h2 className="font-serif text-xl font-medium text-ink mb-3">Strečing</h2>
+        <h2 className="font-serif text-xl font-medium text-black mb-4">Strečing</h2>
         <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2">
           {SEED_STRETCHES.map((v) => (
             <Link key={v.id} href={`/video/${v.id}`}>
@@ -289,7 +305,7 @@ export default function DomovPage() {
       {/* ── Tréningy od trénerov ── */}
       {trainerSets.map((set) => (
         <section key={set.label}>
-          <h2 className="font-serif text-xl font-medium text-ink mb-3">
+          <h2 className="font-serif text-xl font-medium text-black mb-4">
             {set.label}
           </h2>
           <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2">
@@ -310,7 +326,7 @@ export default function DomovPage() {
 
       {/* ── Podľa vybavenia ── */}
       <section>
-        <h2 className="font-serif text-xl font-medium text-ink mb-3">
+        <h2 className="font-serif text-xl font-medium text-black mb-4">
           Podľa vybavenia
         </h2>
         <div className="grid grid-cols-2 gap-3">
@@ -318,23 +334,22 @@ export default function DomovPage() {
             <Link
               key={cat.label}
               href={`/cviky/${encodeURIComponent(cat.label)}`}
-              className="bg-cream-100 border border-cream-200 rounded-card overflow-hidden active:bg-cream-200 transition-colors"
+              className="bg-white border border-gray-200 rounded-[20px] overflow-hidden active:bg-gray-100 transition-colors"
             >
-              {/* 2x2 thumbnail grid */}
               <div className="grid grid-cols-2 gap-px h-24">
                 {cat.reels.slice(0, 4).map((r, i) => (
                   <div key={i} className="overflow-hidden">
                     {r.coverUrl ? (
                       <img src={r.coverUrl} alt="" className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full bg-cream-200" />
+                      <div className="w-full h-full bg-gray-100" />
                     )}
                   </div>
                 ))}
               </div>
               <div className="p-3">
-                <p className="font-medium text-ink text-sm">{cat.label}</p>
-                <p className="text-xs text-ink-muted mt-0.5">
+                <p className="font-medium text-black text-sm">{cat.label}</p>
+                <p className="text-xs text-gray-400 mt-0.5">
                   {cat.reels.length} {cat.reels.length === 1 ? "cvik" : cat.reels.length < 5 ? "cviky" : "cvikov"}
                 </p>
               </div>

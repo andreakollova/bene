@@ -347,7 +347,7 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
     durationMinutes: 20,
     orientation: 'landscape',
     videoUrl: 'https://www.youtube.com/embed/jzL_BvCWkLM',
-    coverUrl: '/videos/program/week1/strengthening_light_1.jpg',
+    coverUrl: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/program/week1/strengthening_light_1.jpg',
     trainer: 'Pamela',
   },
   {
@@ -360,7 +360,7 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
     durationMinutes: 12,
     orientation: 'landscape',
     videoUrl: 'https://www.youtube.com/embed/In8dU-376-Q',
-    coverUrl: '/videos/program/week1/routines_1.jpg',
+    coverUrl: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/program/week1/routines_1.jpg',
     trainer: 'Pamela',
   },
   {
@@ -373,7 +373,7 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
     durationMinutes: 22,
     orientation: 'landscape',
     videoUrl: 'https://www.youtube.com/embed/wdXgGQd_Ghk',
-    coverUrl: '/videos/program/week1/strengthening_light_2.jpg',
+    coverUrl: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/program/week1/strengthening_light_2.jpg',
     trainer: 'Pamela',
   },
   {
@@ -386,7 +386,7 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
     durationMinutes: 10,
     orientation: 'landscape',
     videoUrl: 'https://www.youtube.com/embed/1hz2HbD71QQ',
-    coverUrl: '/videos/program/week1/routines_2.jpg',
+    coverUrl: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/program/week1/routines_2.jpg',
     trainer: 'Pamela',
   },
   {
@@ -398,8 +398,8 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
     difficulty: 'light',
     durationMinutes: 25,
     orientation: 'landscape',
-    videoUrl: '/videos/program/week2/strengthening_light_3.mov',
-    coverUrl: '/videos/program/week2/strengthening_light_3.jpg',
+    videoUrl: 'https://www.youtube.com/embed/sMnGrh7x3L8',
+    coverUrl: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/program/week2/strengthening_light_3.jpg',
     trainer: 'Pamela',
   },
   {
@@ -411,8 +411,8 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
     difficulty: 'light',
     durationMinutes: 14,
     orientation: 'landscape',
-    videoUrl: '/videos/program/week2/routines_3.mov',
-    coverUrl: '/videos/program/week2/routines_3.jpg',
+    videoUrl: 'https://www.youtube.com/embed/HF2YV4XR2xM',
+    coverUrl: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/program/week2/routines_3.jpg',
     trainer: 'Pamela',
   },
   {
@@ -424,8 +424,8 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
     difficulty: 'light',
     durationMinutes: 26,
     orientation: 'landscape',
-    videoUrl: '/videos/program/week2/strengthening_light_4.mov',
-    coverUrl: '/videos/program/week2/strengthening_light_4.jpg',
+    videoUrl: 'https://www.youtube.com/embed/EsCebvBZG-I',
+    coverUrl: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/program/week2/strengthening_light_4.jpg',
     trainer: 'Pamela',
   },
   {
@@ -437,8 +437,8 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
     difficulty: 'light',
     durationMinutes: 12,
     orientation: 'landscape',
-    videoUrl: '/videos/program/week2/routines_4.mov',
-    coverUrl: '/videos/program/week2/routines_4.jpg',
+    videoUrl: 'https://www.youtube.com/embed/hT8HlsFqOEg',
+    coverUrl: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/program/week2/routines_4.jpg',
     trainer: 'Pamela',
   },
   {
@@ -450,8 +450,8 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
     difficulty: 'intermediate',
     durationMinutes: 28,
     orientation: 'landscape',
-    videoUrl: '/videos/program/week3/strengthening_inter_1.mov',
-    coverUrl: '/videos/program/week3/strengthening_inter_1.jpg',
+    videoUrl: 'https://www.youtube.com/embed/FubFV0dTxE8',
+    coverUrl: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/program/week3/strengthening_inter_1.jpg',
     trainer: 'Pamela',
   },
   {
@@ -463,8 +463,8 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
     difficulty: 'intermediate',
     durationMinutes: 16,
     orientation: 'landscape',
-    videoUrl: '/videos/program/week3/routines_5.mov',
-    coverUrl: '/videos/program/week3/routines_5.jpg',
+    videoUrl: 'https://www.youtube.com/embed/etLG7-QybHI',
+    coverUrl: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/program/week3/routines_5.jpg',
     trainer: 'Pamela',
   },
   {
@@ -476,8 +476,8 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
     difficulty: 'intermediate',
     durationMinutes: 30,
     orientation: 'landscape',
-    videoUrl: '/videos/program/week3/strengthening_inter_2.mov',
-    coverUrl: '/videos/program/week3/strengthening_inter_2.jpg',
+    videoUrl: 'https://www.youtube.com/embed/V8ut6Gs9h_k',
+    coverUrl: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/program/week3/strengthening_inter_2.jpg',
     trainer: 'Pamela',
   },
   {
@@ -490,7 +490,7 @@ export const SEED_VIDEO_SESSIONS: VideoSession[] = [
     durationMinutes: 14,
     orientation: 'landscape',
     videoUrl: '/videos/program/week3/routines_6.mov',
-    coverUrl: '/videos/program/week3/routines_6.jpg',
+    coverUrl: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/program/week3/routines_6.jpg',
     trainer: 'Pamela',
   },
 ];
@@ -510,7 +510,7 @@ export const SEED_STRETCHES: VideoSession[] = [
     durationMinutes: 10,
     orientation: 'portrait',
     videoUrl: 'https://www.youtube.com/embed/-KmREab38sQ',
-    coverUrl: '/videos/stretches/pamela_office_stretch.jpg',
+    coverUrl: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/stretches/pamela_office_stretch.jpg',
     trainer: 'Pamela',
   },
   {
@@ -523,7 +523,7 @@ export const SEED_STRETCHES: VideoSession[] = [
     durationMinutes: 15,
     orientation: 'portrait',
     videoUrl: 'https://www.youtube.com/embed/XZM1xiY9jOw',
-    coverUrl: '/videos/stretches/pamela_upper_body_stretch.jpg',
+    coverUrl: 'https://vponkhglrpajgpreqbye.supabase.co/storage/v1/object/public/videos/stretches/pamela_upper_body_stretch.jpg',
     trainer: 'Pamela',
   },
   {

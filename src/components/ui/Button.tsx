@@ -22,18 +22,15 @@ export function Button({
   className = "",
 }: ButtonProps) {
   const base =
-    "inline-flex items-center justify-center gap-2 min-h-11 px-5 rounded-btn font-sans text-sm font-medium transition-opacity duration-150 select-none";
-
-  const filledStyle =
-    variant === "filled"
-      ? { backgroundColor: "#3D3929", color: "#FAF9F5" }
-      : undefined;
+    "inline-flex items-center justify-center gap-2 min-h-11 px-6 rounded-full font-sans text-sm font-medium tracking-wide transition-opacity duration-150 select-none";
 
   const variantClasses: Record<string, string> = {
-    filled: "active:opacity-75 disabled:opacity-40",
+    filled:
+      "bg-black text-white active:opacity-75 disabled:opacity-30",
     ghost:
-      "border border-sage text-sage bg-transparent hover:opacity-80 active:opacity-60 disabled:opacity-40",
-    text: "text-sage bg-transparent hover:opacity-75 active:opacity-50 disabled:opacity-40",
+      "border border-black text-black bg-transparent hover:opacity-70 active:opacity-50 disabled:opacity-30",
+    text:
+      "text-black bg-transparent underline-offset-2 hover:underline active:opacity-50 disabled:opacity-30",
   };
 
   return (
@@ -41,7 +38,6 @@ export function Button({
       onClick={onClick}
       disabled={disabled}
       className={`${base} ${variantClasses[variant]} ${fullWidth ? "w-full" : ""} ${className}`}
-      style={filledStyle}
     >
       {icon && <span className="flex-shrink-0">{icon}</span>}
       {children}

@@ -28,25 +28,25 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-cream-50 flex items-center justify-center px-6 py-12">
+    <div className="min-h-screen bg-white flex items-center justify-center px-6 py-12">
       <div className="w-full max-w-sm">
         {/* Welcome */}
         {step === 0 && (
-          <div className="text-center space-y-8 animate-fadeIn">
+          <div className="text-center space-y-10 animate-fade-in">
             <div className="flex justify-center">
               <BeneWave size={180} />
             </div>
             <div>
-              <h1 className="font-serif text-[34px] font-semibold text-ink leading-tight">
+              <h1 className="font-serif text-[34px] font-semibold text-black leading-tight">
                 Vitaj v Bene
               </h1>
-              <p className="mt-4 text-ink-muted text-[17px] leading-relaxed">
+              <p className="mt-4 text-gray-400 text-[17px] leading-relaxed">
                 Tvoj sprievodca rehabilitáciou.
                 <br />
                 Krok za krokom, deň za dňom.
               </p>
             </div>
-            <p className="text-ink-faint italic font-serif text-sm leading-relaxed px-4">
+            <p className="text-gray-300 italic font-serif text-sm leading-relaxed px-4">
               Neber rehabilitáciu ako liečenie niečoho pokazeného,
               ale ako tréning techniky.
             </p>
@@ -58,12 +58,15 @@ export default function OnboardingPage() {
 
         {/* Schedule */}
         {step === 1 && (
-          <div className="space-y-8 animate-fadeIn">
+          <div className="space-y-10 animate-fade-in">
             <div>
-              <h2 className="font-serif text-2xl font-semibold text-ink">
+              <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-3">
+                KROK 2 / 2
+              </p>
+              <h2 className="font-serif text-2xl font-semibold text-black">
                 Kedy cvičíš?
               </h2>
-              <p className="text-ink-muted mt-1">
+              <p className="text-gray-400 mt-1">
                 Vyber dni, kedy chceš cvičiť
               </p>
             </div>
@@ -73,10 +76,10 @@ export default function OnboardingPage() {
                 <button
                   key={i}
                   onClick={() => toggleDay(i)}
-                  className={`w-11 h-11 rounded-card text-sm font-semibold transition-colors ${
+                  className={`w-11 h-11 rounded-full text-sm font-semibold transition-colors ${
                     days.includes(i)
-                      ? "bg-sage text-white"
-                      : "bg-cream-100 border border-cream-200 text-ink-muted"
+                      ? "bg-black text-white"
+                      : "bg-white border border-gray-200 text-gray-400"
                   }`}
                 >
                   {label}
@@ -86,7 +89,7 @@ export default function OnboardingPage() {
 
             <div className="flex flex-col items-center gap-3 py-8">
               <BeneStretch size={140} />
-              <p className="text-ink-muted italic">
+              <p className="text-gray-400 italic">
                 Pripravený na nový začiatok
               </p>
             </div>

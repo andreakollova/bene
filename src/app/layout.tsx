@@ -31,11 +31,10 @@ export default function RootLayout({
   return (
     <html
       lang="sk"
-      className={`${lora.variable} ${hanken.variable} h-full light`}
-      data-theme="light"
+      className={`${lora.variable} ${hanken.variable} h-full`}
       style={{ colorScheme: "light" }}
     >
-      <body className="h-full text-ink font-sans antialiased" style={{ backgroundColor: '#FAF8F5' }}>
+      <body className="h-full font-sans antialiased bg-white text-black">
         <AppShell>{children}</AppShell>
       </body>
     </html>

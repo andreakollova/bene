@@ -28,7 +28,7 @@ export function MobileNav() {
       : pathname.startsWith(href);
 
   return (
-    <nav className="sticky bottom-0 z-50 backdrop-blur-md border-t border-cream-200" style={{ backgroundColor: 'rgba(250,248,245,0.9)' }}>
+    <nav className="sticky bottom-0 z-50 bg-white border-t border-gray-200">
       <div className="flex items-center justify-around px-2 h-16 pb-1">
         {NAV_LINKS.map(({ href, label, icon: Icon }) => {
           const active = isActive(href);
@@ -36,12 +36,12 @@ export function MobileNav() {
             <Link
               key={href}
               href={href}
-              className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-btn transition-colors duration-150 ${
-                active ? "text-sage" : "text-ink-faint"
+              className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-full transition-colors duration-150 ${
+                active ? "text-black" : "text-gray-400"
               }`}
             >
               <Icon size={22} strokeWidth={active ? 2 : 1.75} />
-              <span className="text-[10px] font-medium">{label}</span>
+              <span className="text-[10px] font-medium uppercase tracking-widest">{label}</span>
             </Link>
           );
         })}
